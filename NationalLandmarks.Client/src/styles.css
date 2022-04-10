@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+}
+
+form {
+  border: 1px solid grey;
+  padding: 10% 10%;
+  margin-top: 20%;
+}
