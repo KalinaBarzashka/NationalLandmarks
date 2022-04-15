@@ -11,7 +11,7 @@
         public string Name { get; set; }
 
         [Required]
-        public bool IsNationalLandmark { get; set; }
+        public string IsNationalLandmark { get; set; }
 
         [Required]
         [MaxLength(MaxDescriptionLength)]
@@ -31,7 +31,7 @@
 
         public string? Closes { get; set; }
 
-        public bool? WorksOnWeekends { get; set; }
+        public string? WorksOnWeekends { get; set; }
 
         public string? Email { get; set; }
 
@@ -40,7 +40,7 @@
         public string? Website { get; set; }
 
         [Required]
-        public bool HasSeal { get; set; }
+        public string HasSeal { get; set; }
 
         [Required]
         public string ImageUrl { get; set; }

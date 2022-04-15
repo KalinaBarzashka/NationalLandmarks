@@ -11,6 +11,8 @@
         {
         }
 
+        public DbSet<Landmark> Landmarks { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Landmark>()

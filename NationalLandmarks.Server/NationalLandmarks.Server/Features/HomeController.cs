@@ -1,4 +1,4 @@
-﻿namespace NationalLandmarks.Server.Controllers
+﻿namespace NationalLandmarks.Server.Features
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
