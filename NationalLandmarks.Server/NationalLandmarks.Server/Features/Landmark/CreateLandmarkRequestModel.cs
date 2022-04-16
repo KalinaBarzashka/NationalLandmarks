@@ -1,4 +1,4 @@
-﻿namespace NationalLandmarks.Server.Models.Landmarks
+﻿namespace NationalLandmarks.Server.Features.Landmark
 {
     using System.ComponentModel.DataAnnotations;
 

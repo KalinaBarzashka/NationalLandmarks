@@ -1,29 +1,19 @@
-﻿namespace NationalLandmarks.Server.Features
+﻿namespace NationalLandmarks.Server.Features.Landmark
 {
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
+    using Data.Models;
     using NationalLandmarks.Server.Data;
-    using NationalLandmarks.Server.Data.Models;
-    using NationalLandmarks.Server.Infrastructure;
-    using NationalLandmarks.Server.Models.Landmarks;
-    using System.Security.Claims;
 
-    public class LandmarkController: ApiController
+    public class LandmarkService : ILandmarkService
     {
         private readonly NationalLandmarksDbContext dbContext;
 
-        public LandmarkController(NationalLandmarksDbContext dbContext)
+        public LandmarkService(NationalLandmarksDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        [Authorize]
-        [HttpPost]
-        public async Task<ActionResult> Create(CreateLandmarkRequestModel model)
+        public async Task<int> CreateLandmark(CreateLandmarkRequestModel model, string userId)
         {
-            //string username = this.User.Identity.Name;
-            string userId = this.User.GetId();
-
             var landmark = new Landmark
             {
                 Name = model.Name,
@@ -46,8 +36,7 @@
             this.dbContext.Add(landmark);
             await this.dbContext.SaveChangesAsync();
 
-
-            return Created(nameof(this.Create), landmark.Id);
+            return landmark.Id;
         }
     }
 }

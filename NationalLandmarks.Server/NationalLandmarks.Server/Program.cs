@@ -1,14 +1,14 @@
-using Microsoft.EntityFrameworkCore;
-using NationalLandmarks.Server.Data;
 using NationalLandmarks.Server.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<NationalLandmarksDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetDefaultConnectionString()))
+builder.Services
+    .AddDatabase(builder.Configuration)
     .AddIdentity()
     .AddJwtAuthentication(builder.Services.GetApplicationSettings(builder.Configuration))
+    .AddApplicationServices()
+    .AddSwagger()
     .AddControllers();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -25,7 +25,9 @@ if (app.Environment.IsDevelopment())
 /*app.UseHttpsRedirection();
 app.UseStaticFiles();*/
 
-app.UseRouting()
+app
+    .UseSwaggerUI()
+    .UseRouting()
     .UseCors(options => options
         .AllowAnyOrigin()
         .AllowAnyHeader()
