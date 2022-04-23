@@ -7,11 +7,12 @@ import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { AuthService } from './services/auth.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LandmarkService } from './services/landmark.service';
 import { CreateComponent } from './landmark/create/create.component';
 import { LandmarkModule } from './landmark/landmark.module';
 import { AuthGuardService } from './services/auth-guard.service';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,12 @@ import { AuthGuardService } from './services/auth-guard.service';
   providers: [
     AuthService,
     LandmarkService,
-    AuthGuardService
+    AuthGuardService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

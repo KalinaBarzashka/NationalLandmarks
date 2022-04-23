@@ -21,7 +21,7 @@ export class CreateComponent {
   constructor(private fb: FormBuilder, private landmarkService: LandmarkService) {
     this.landmarkForm = this.fb.group({
       'name': ['', [Validators.required]],
-      'isNationalLandmark': ['', [Validators.required]],
+      'isNationalLandmark': [true, [Validators.required]],
       'description': ['', [Validators.required]],
       'address': ['', [Validators.required]],
       'latitude': ['', [Validators.required]],

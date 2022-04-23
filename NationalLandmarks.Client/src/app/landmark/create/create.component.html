@@ -9,7 +9,7 @@
         </div>
         <div *ngIf="name?.touched && name?.errors?.['required']" class="alert alert-danger">Landmark name is required!</div>
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="isNationalLandmark">
+          <input type="checkbox" id="flexCheckDefault" class="form-check-input" formControlName="isNationalLandmark">
           <label class="form-check-label" for="flexCheckDefault">
             Landmark is national
           </label>
