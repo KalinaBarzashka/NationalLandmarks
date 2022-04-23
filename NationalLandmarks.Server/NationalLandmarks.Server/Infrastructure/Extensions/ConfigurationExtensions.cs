@@ -1,4 +1,4 @@
-﻿namespace NationalLandmarks.Server.Infrastructure
+﻿namespace NationalLandmarks.Server.Infrastructure.Extensions
 {
     public static class ConfigurationExtensions
     {

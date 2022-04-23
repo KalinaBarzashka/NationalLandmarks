@@ -20,6 +20,10 @@
         public string Description { get; set; }
 
         [Required]
+        [MaxLength(MaxTownLength)]
+        public string Town { get; set; }
+
+        [Required]
         [MaxLength(MaxAddressLength)]
         public string Address { get; set; }
 

@@ -20,6 +20,11 @@
         </div>
         <div *ngIf="description?.touched && description?.errors?.['required']" class="alert alert-danger">Landmark description is required!</div>
         <div class="form-group">
+          <label for="landmarkTown" class="form-label">Town</label>
+          <input id="landmarkTown" class="form-control" formControlName="town" maxlength ="50">
+        </div>
+        <div *ngIf="town?.touched && town?.errors?.['required']" class="alert alert-danger">Landmark town is required!</div>
+        <div class="form-group">
           <label for="landmarkAddress" class="form-label">Address</label>
           <textarea id="landmarkAddress" class="form-control" formControlName="address" rows="2" maxlength ="255"></textarea>
         </div>

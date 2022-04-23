@@ -1,4 +1,4 @@
-﻿namespace NationalLandmarks.Server.Features.Landmark
+﻿namespace NationalLandmarks.Server.Features.Landmark.Models
 {
     using System.ComponentModel.DataAnnotations;
 
@@ -16,6 +16,10 @@
         [Required]
         [MaxLength(MaxDescriptionLength)]
         public string Description { get; set; }
+
+        [Required]
+        [MaxLength(MaxTownLength)]
+        public string Town { get; set; }
 
         [Required]
         [MaxLength(MaxAddressLength)]

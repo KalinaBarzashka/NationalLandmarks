@@ -1,4 +1,5 @@
-using NationalLandmarks.Server.Infrastructure;
+using NationalLandmarks.Server.Infrastructure.Extensions;
+using NationalLandmarks.Server.Infrastructure.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +10,7 @@ builder.Services
     .AddJwtAuthentication(builder.Services.GetApplicationSettings(builder.Configuration))
     .AddApplicationServices()
     .AddSwagger()
-    .AddControllers();
+    .AddApiControllers();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

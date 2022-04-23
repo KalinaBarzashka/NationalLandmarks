@@ -13,6 +13,7 @@ export class CreateComponent {
   get name() { return this.landmarkForm.get('name'); }
   get isNationalLandmark() { return this.landmarkForm.get('isNationalLandmark'); }
   get description() { return this.landmarkForm.get('description'); }
+  get town() { return this.landmarkForm.get('town'); }
   get address() { return this.landmarkForm.get('address'); }
   get latitude() { return this.landmarkForm.get('latitude'); }
   get longitude() { return this.landmarkForm.get('longitude'); }
@@ -23,6 +24,7 @@ export class CreateComponent {
       'name': ['', [Validators.required]],
       'isNationalLandmark': [true, [Validators.required]],
       'description': ['', [Validators.required]],
+      'town': ['', [Validators.required]],
       'address': ['', [Validators.required]],
       'latitude': ['', [Validators.required]],
       'longitude': ['', [Validators.required]],

@@ -1,4 +1,4 @@
-﻿namespace NationalLandmarks.Server.Infrastructure
+﻿namespace NationalLandmarks.Server.Infrastructure.Extensions
 {
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Identity;
@@ -9,6 +9,7 @@
     using NationalLandmarks.Server.Data.Models;
     using NationalLandmarks.Server.Features.Identity;
     using NationalLandmarks.Server.Features.Landmark;
+    using NationalLandmarks.Server.Infrastructure.Filters;
     using System.Text;
 
     public static class ServiceCollectionsExtensions
@@ -79,6 +80,14 @@
             return services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Landmark API", Version = "v1" });
+            });
+        }
+
+        public static void AddApiControllers(this IServiceCollection services)
+        {
+            services.AddControllers(options =>
+            {
+                options.Filters.Add<ModelOrNotFoundActionFilter>();
             });
         }
     }

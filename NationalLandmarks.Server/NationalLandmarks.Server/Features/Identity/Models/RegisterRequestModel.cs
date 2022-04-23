@@ -1,4 +1,4 @@
-﻿namespace NationalLandmarks.Server.Features.Identity
+﻿namespace NationalLandmarks.Server.Features.Identity.Models
 {
     using System.ComponentModel.DataAnnotations;
 

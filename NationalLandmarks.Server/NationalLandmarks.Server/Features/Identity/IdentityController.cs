@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
     using NationalLandmarks.Server.Data.Models;
+    using NationalLandmarks.Server.Features.Identity.Models;
 
     public class IdentityController : ApiController
     {
