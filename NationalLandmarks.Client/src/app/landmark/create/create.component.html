@@ -1,0 +1,47 @@
+<div class="landmark-create__container">
+  <div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
+      <form [formGroup]="landmarkForm" (ngSubmit)="createHandler()">
+        <div class="form-group">
+          <label for="landmarkName" class="form-label">Landmark Name</label>
+          <input id="landmarkName" type="text" class="form-control" formControlName="name">
+        </div>
+        <div *ngIf="name?.touched && name?.errors?.['required']" class="alert alert-danger">Landmark name is required!</div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="isNationalLandmark">
+          <label class="form-check-label" for="flexCheckDefault">
+            Landmark is national
+          </label>
+        </div>
+        <div class="form-group">
+          <label for="landmarkDescription" class="form-label">Description</label>
+          <textarea id="landmarkDescription" class="form-control" formControlName="description" rows="3" maxlength ="5000"></textarea>
+        </div>
+        <div *ngIf="description?.touched && description?.errors?.['required']" class="alert alert-danger">Landmark description is required!</div>
+        <div class="form-group">
+          <label for="landmarkAddress" class="form-label">Address</label>
+          <textarea id="landmarkAddress" class="form-control" formControlName="address" rows="2" maxlength ="255"></textarea>
+        </div>
+        <div *ngIf="address?.touched && address?.errors?.['required']" class="alert alert-danger">Landmark address is required!</div>
+        <div class="form-group">
+          <label for="landmarkLatitude" class="form-label">Latitude</label>
+          <input id="landmarkLatitude" type="text" class="form-control" formControlName="latitude" />
+        </div>
+        <div *ngIf="latitude?.touched && latitude?.errors?.['required']" class="alert alert-danger">Landmark latitude is required!</div>
+        <div class="form-group">
+          <label for="landmarkLongitude" class="form-label">Longitude</label>
+          <input id="landmarkLongitude" type="text" class="form-control" formControlName="longitude" />
+        </div>
+        <div *ngIf="longitude?.touched && longitude?.errors?.['required']" class="alert alert-danger">Landmark longitude is required!</div>
+        <div class="form-group">
+          <label for="landmarkImageUrl" class="form-label">Image URL</label>
+          <input id="landmarkImageUrl" type="text" class="form-control" formControlName="imageUrl" />
+        </div>
+        <div *ngIf="imageUrl?.touched && imageUrl?.errors?.['required']" class="alert alert-danger">Image URL is required!</div>
+        <button class="btn btn-primary">Create Landmark</button>
+      </form>
+    </div>
+    <div class="col-lg-3"></div>
+  </div>
+</div>

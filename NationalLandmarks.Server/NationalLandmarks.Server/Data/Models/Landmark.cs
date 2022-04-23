@@ -41,8 +41,8 @@
 
         public string? Website { get; set; }
 
-        [Required]
-        public bool HasSeal { get; set; }
+        //[Required]
+        //public bool HasSeal { get; set; }
 
         [Required]
         public string ImageUrl { get; set; }

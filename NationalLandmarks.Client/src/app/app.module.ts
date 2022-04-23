@@ -8,6 +8,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { LandmarkService } from './services/landmark.service';
+import { CreateComponent } from './landmark/create/create.component';
+import { LandmarkModule } from './landmark/landmark.module';
+import { AuthGuardService } from './services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -16,13 +20,16 @@ import { HttpClientModule } from '@angular/common/http';
     RegisterComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule, //includes CommonModule (commons directives - ngIf, ngFor...)
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    LandmarkModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    LandmarkService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

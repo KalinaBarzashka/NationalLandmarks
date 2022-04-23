@@ -17,7 +17,7 @@
             var landmark = new Landmark
             {
                 Name = model.Name,
-                IsNationalLandmark = model.IsNationalLandmark == "true" ? true : false,
+                IsNationalLandmark = model.IsNationalLandmark,
                 Description = model.Description,
                 Address = model.Address,
                 Latitude = model.Latitude,
@@ -28,7 +28,7 @@
                 Email = model.Email,
                 Phone = model.Phone,
                 Website = model.Website,
-                HasSeal = model.HasSeal == "true" ? true : false,
+                //HasSeal = model.HasSeal == "true" ? true : false,
                 ImageUrl = model.ImageUrl,
                 UserId = userId
             };

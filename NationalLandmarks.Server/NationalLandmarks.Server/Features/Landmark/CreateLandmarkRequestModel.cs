@@ -11,7 +11,7 @@
         public string Name { get; set; }
 
         [Required]
-        public string IsNationalLandmark { get; set; }
+        public bool IsNationalLandmark { get; set; }
 
         [Required]
         [MaxLength(MaxDescriptionLength)]
@@ -39,8 +39,8 @@
 
         public string? Website { get; set; }
 
-        [Required]
-        public string HasSeal { get; set; }
+        //[Required]
+        //public string HasSeal { get; set; }
 
         [Required]
         public string ImageUrl { get; set; }

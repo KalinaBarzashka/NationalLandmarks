@@ -8,7 +8,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginForm!: FormGroup;
+  loginForm: FormGroup;
   get username() {
     return this.loginForm.get('username');
   }
