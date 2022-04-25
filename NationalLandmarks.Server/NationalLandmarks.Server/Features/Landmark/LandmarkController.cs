@@ -4,8 +4,9 @@
     using Microsoft.AspNetCore.Mvc;
     using NationalLandmarks.Server.Data;
     using NationalLandmarks.Server.Features.Landmark.Models;
-    using NationalLandmarks.Server.Infrastructure;
     using NationalLandmarks.Server.Infrastructure.Extensions;
+
+    using static Infrastructure.WebConstants;
 
     public class LandmarkController : ApiController
     {
@@ -29,7 +30,7 @@
 
         //[Authorize]
         [HttpGet]
-        [Route("{id}")]
+        [Route(RouteId)]
         public async Task<ActionResult<LandmarkDetailsServiceModel>> Details(int id)
         {
             var landmark = await this.landmarkService.GetLandmarkDetailsById(id);
@@ -58,9 +59,35 @@
 
         [Authorize]
         [HttpPut]
-        public async Task<ActionResult> Update(int id)
+        public async Task<ActionResult> Update(UpdateLandmarkRequestModel model)
         {
+            var userId = this.User.GetId();
 
+            var updated = await this.landmarkService.UpdateLandmark(model, userId);
+
+            if (!updated)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpDelete]
+        [Route(RouteId)]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var userId = this.User.GetId();
+
+            var deleted = await this.landmarkService.DeleteLandmark(id, userId);
+
+            if(!deleted)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
         }
     }
 }

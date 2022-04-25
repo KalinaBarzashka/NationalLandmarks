@@ -32,7 +32,7 @@ app
     .UseCors(options => options
         .AllowAnyOrigin()
         .AllowAnyHeader()
-        .AllowAnyHeader())
+        .AllowAnyMethod())
     .UseAuthentication()
     .UseAuthorization()
     .UseEndpoints(endpoints => endpoints.MapControllers())

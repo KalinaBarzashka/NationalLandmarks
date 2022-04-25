@@ -224,7 +224,7 @@ namespace NationalLandmarks.Server.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Landmarks");
+                    b.ToTable("Landmarks", (string)null);
                 });
 
             modelBuilder.Entity("NationalLandmarks.Server.Data.Models.User", b =>

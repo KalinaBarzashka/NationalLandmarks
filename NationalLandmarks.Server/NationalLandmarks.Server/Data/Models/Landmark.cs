@@ -57,5 +57,6 @@
         public User User { get; set; }
 
         //област и град - връзка към друга таблица!
+        //CreatedOn, UpdatedOn, soft delete - mark entity as deleted (with property isDeleted)
     }
 }

@@ -9,10 +9,12 @@ import { RegisterComponent } from './register/register.component';
 import { AuthService } from './services/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LandmarkService } from './services/landmark.service';
-import { CreateComponent } from './landmark/create/create.component';
 import { LandmarkModule } from './landmark/landmark.module';
 import { AuthGuardService } from './services/auth-guard.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { ErrorInterceptorService } from './services/error-interceptor.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    LandmarkModule
+    LandmarkModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     AuthService,
@@ -34,6 +38,11 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptorService,
       multi: true
     }
   ],

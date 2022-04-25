@@ -86,5 +86,51 @@
                 })
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<bool> UpdateLandmark(UpdateLandmarkRequestModel model, string userId)
+        {
+            var landmark = await this.GetlandmarkByIdAndUserId(model.Id, userId);
+
+            if (landmark == null)
+            {
+                return false;
+            }
+
+            landmark.IsNationalLandmark = model.IsNationalLandmark;
+            landmark.Description = model.Description;
+            landmark.Opens = model.Opens;
+            landmark.Closes = model.Closes;
+            landmark.WorksOnWeekends = model.WorksOnWeekends;
+            landmark.Email = model.Email;   
+            landmark.Phone = model.Phone;
+            landmark.Website = model.Website;
+            landmark.ImageUrl = model.ImageUrl;
+
+            await this.dbContext.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> DeleteLandmark(int id, string userId)
+        {
+            var landmark = await this.GetlandmarkByIdAndUserId(id, userId);
+
+            if (landmark == null)
+            {
+                return false;
+            }
+
+            this.dbContext.Landmarks.Remove(landmark);
+            await this.dbContext.SaveChangesAsync();
+            return true;
+        }
+
+        private async Task<Landmark> GetlandmarkByIdAndUserId(int id, string userId)
+        {
+            return 
+                await this.dbContext
+               .Landmarks
+               .Where(l => l.Id == id && l.UserId == userId)
+               .FirstOrDefaultAsync();
+        }
     }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LandmarkService } from 'src/app/services/landmark.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create',
@@ -19,7 +20,10 @@ export class CreateComponent {
   get longitude() { return this.landmarkForm.get('longitude'); }
   get imageUrl() { return this.landmarkForm.get('imageUrl'); }
 
-  constructor(private fb: FormBuilder, private landmarkService: LandmarkService) {
+  constructor(
+    private fb: FormBuilder, 
+    private landmarkService: LandmarkService,
+    private toastrService: ToastrService) {
     this.landmarkForm = this.fb.group({
       'name': ['', [Validators.required]],
       'isNationalLandmark': [true, [Validators.required]],
@@ -34,7 +38,7 @@ export class CreateComponent {
 
   createHandler(): void {
     this.landmarkService.create(this.landmarkForm.value).subscribe(res => {
-      console.log(res);
+      this.toastrService.success("Successfully created landmark!");
     });
   }
 

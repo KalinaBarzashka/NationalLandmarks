@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -17,7 +18,10 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('password');
   }
 
-  constructor(private fb: FormBuilder, private authService: AuthService) { 
+  constructor(
+    private fb: FormBuilder, 
+    private authService: AuthService,
+    private router: Router) { 
     this.loginForm = this.fb.group({
       'username': ['', [Validators.required]], //default value, array of validators, aync validators
       'password': ['', [Validators.required]]
@@ -30,6 +34,7 @@ export class LoginComponent implements OnInit {
   login() : void {
     this.authService.login(this.loginForm.value).subscribe(data => {
       this.authService.saveToken(data['token']);
+      this.router.navigate(['landmarks']);
     });
   }
 
