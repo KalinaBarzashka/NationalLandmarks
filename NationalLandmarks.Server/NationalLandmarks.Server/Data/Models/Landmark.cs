@@ -1,10 +1,11 @@
 ﻿namespace NationalLandmarks.Server.Data.Models
 {
+    using NationalLandmarks.Server.Data.Models.Base;
     using System.ComponentModel.DataAnnotations;
 
     using static Validation.Landmark;
 
-    public class Landmark
+    public class Landmark: DeletableEntity
     {
         public int Id { get; set; }
 

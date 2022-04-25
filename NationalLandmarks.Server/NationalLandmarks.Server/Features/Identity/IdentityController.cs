@@ -1,24 +1,29 @@
 ﻿namespace NationalLandmarks.Server.Features.Identity
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
     using NationalLandmarks.Server.Data.Models;
     using NationalLandmarks.Server.Features.Identity.Models;
+    using NationalLandmarks.Server.Infrastructure.Services;
 
     public class IdentityController : ApiController
     {
         private readonly UserManager<User> userManager;
         private readonly IIdentityService identityService;
         private readonly AppSettings appSettings;
+        private readonly ICurrentUserService currentUserService;
 
         public IdentityController(UserManager<User> userManager,
             IIdentityService identityService,
-            IOptions<AppSettings> appSettings)
+            IOptions<AppSettings> appSettings,
+            ICurrentUserService currentUserService)
         {
             this.userManager = userManager;
             this.identityService = identityService;
             this.appSettings = appSettings.Value;
+            this.currentUserService = currentUserService;
         }
 
         [Route(nameof(Register))]
@@ -32,12 +37,12 @@
             };
             var result = await this.userManager.CreateAsync(user, model.Password);
 
-            if (result.Succeeded)
+            if (!result.Succeeded)
             {
-                return Ok();
+                return BadRequest(result.Errors);
             }
 
-            return BadRequest(result.Errors);
+            return Ok();
         }
 
         [Route(nameof(Login))]
@@ -59,6 +64,31 @@
             {
                 Token = token
             };
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route(nameof(Profile))]
+        public async Task<ActionResult<ProfileServiceModel>> Profile()
+        {
+            return await this.identityService.GetUserProfile(this.currentUserService.GetId());
+        }
+
+        [HttpPut]
+        [Authorize]
+        [Route(nameof(Profile))]
+        public async Task<ActionResult> UpdateProfile(UpdateProfileRequestModel model)
+        {
+            var userId = this.currentUserService.GetId();
+
+            var result = await this.identityService.UpdateProfile(userId, model);
+
+            if (result.Failure)
+            {
+                return BadRequest(result.Error);
+            }
+
+            return Ok();
         }
 
     }

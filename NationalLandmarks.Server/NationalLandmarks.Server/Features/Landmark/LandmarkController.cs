@@ -5,20 +5,20 @@
     using NationalLandmarks.Server.Data;
     using NationalLandmarks.Server.Features.Landmark.Models;
     using NationalLandmarks.Server.Infrastructure.Extensions;
-
+    using NationalLandmarks.Server.Infrastructure.Services;
     using static Infrastructure.WebConstants;
 
     public class LandmarkController : ApiController
     {
-        private readonly NationalLandmarksDbContext dbContext;
         private readonly ILandmarkService landmarkService;
+        private readonly ICurrentUserService currentUserService;
 
         public LandmarkController(
-            NationalLandmarksDbContext dbContext,
-            ILandmarkService landmarkService)
+            ILandmarkService landmarkService,
+            ICurrentUserService currentUserService)
         {
-            this.dbContext = dbContext;
             this.landmarkService = landmarkService;
+            this.currentUserService = currentUserService;
         }
 
         //[Authorize]
@@ -50,7 +50,7 @@
         public async Task<ActionResult> Create(CreateLandmarkRequestModel model)
         {
             //string username = this.User.Identity.Name;
-            string userId = this.User.GetId();
+            var userId = this.currentUserService.GetId();//this.User.GetId();
 
             int landmarkId = await this.landmarkService.CreateLandmark(model, userId);
 
@@ -59,15 +59,16 @@
 
         [Authorize]
         [HttpPut]
-        public async Task<ActionResult> Update(UpdateLandmarkRequestModel model)
+        [Route(RouteId)]
+        public async Task<ActionResult> Update(int id, UpdateLandmarkRequestModel model)
         {
-            var userId = this.User.GetId();
+            var userId = this.currentUserService.GetId();
 
-            var updated = await this.landmarkService.UpdateLandmark(model, userId);
+            var result = await this.landmarkService.UpdateLandmark(id, model, userId);
 
-            if (!updated)
+            if (result.Failure)
             {
-                return BadRequest();
+                return BadRequest(result.Error);
             }
 
             return Ok();
@@ -78,13 +79,13 @@
         [Route(RouteId)]
         public async Task<ActionResult> Delete(int id)
         {
-            var userId = this.User.GetId();
+            var userId = this.currentUserService.GetId();
 
-            var deleted = await this.landmarkService.DeleteLandmark(id, userId);
+            var result = await this.landmarkService.DeleteLandmark(id, userId);
 
-            if(!deleted)
+            if(result.Failure)
             {
-                return BadRequest();
+                return BadRequest(result.Error);
             }
 
             return Ok();

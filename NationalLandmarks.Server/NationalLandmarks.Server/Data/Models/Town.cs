@@ -1,27 +1,27 @@
 ﻿namespace NationalLandmarks.Server.Data.Models
 {
-    using Microsoft.AspNetCore.Identity;
     using NationalLandmarks.Server.Data.Models.Base;
-    using System;
     using System.ComponentModel.DataAnnotations;
-    using static Validation.User;
 
-    public class User: IdentityUser, IDeletableEntity
+    using static NationalLandmarks.Server.Data.Validation.Town;
+
+    public class Town: IDeletableEntity
     {
-        [Required]
-        [MaxLength(MaxFirstNameLength)]
-        public string FirstName { get; set; }
+        public int Id { get; set; }
 
         [Required]
-        [MaxLength(MaxLastNameLength)]
-        public string LastName { get; set; }
+        [MaxLength(MaxNameLength)]
+        public string Name { get; set; }
 
-        public string? ProfileImageUrl { get; set; }
+        [Required]
+        public int AreaId { get; set; }
+
+        public Area Area { get; set; }
 
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
-    
+
         public string? DeletedBy { get; set; }
 
         public DateTime CreatedOn { get; set; }
@@ -31,7 +31,5 @@
         public DateTime? ModifiedOn { get; set; }
 
         public string? ModifiedByUsername { get; set; }
-
-        public IEnumerable<Landmark> Landmarks { get; } = new HashSet<Landmark>();
     }
 }

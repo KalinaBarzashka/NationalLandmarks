@@ -9,5 +9,21 @@
             public const int MaxAddressLength = 255;
             public const int MaxTownLength = 50;
         }
+
+        public class User
+        {
+            public const int MaxFirstNameLength = 40;
+            public const int MaxLastNameLength = 40;
+        }
+
+        public class Area
+        {
+            public const int MaxNameLength = 50;
+        }
+
+        public class Town
+        {
+            public const int MaxNameLength = 50;
+        }
     }
 }

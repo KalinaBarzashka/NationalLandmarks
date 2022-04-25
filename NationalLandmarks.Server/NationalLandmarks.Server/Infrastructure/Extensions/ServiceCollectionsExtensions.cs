@@ -10,6 +10,7 @@
     using NationalLandmarks.Server.Features.Identity;
     using NationalLandmarks.Server.Features.Landmark;
     using NationalLandmarks.Server.Infrastructure.Filters;
+    using NationalLandmarks.Server.Infrastructure.Services;
     using System.Text;
 
     public static class ServiceCollectionsExtensions
@@ -72,6 +73,7 @@
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             return services.AddTransient<IIdentityService, IdentityService>()
+                           .AddScoped<ICurrentUserService, CurrentUserService>()
                            .AddTransient<ILandmarkService, LandmarkService>();
         }
 

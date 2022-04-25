@@ -4,6 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using NationalLandmarks.Server.Data;
     using NationalLandmarks.Server.Features.Landmark.Models;
+    using NationalLandmarks.Server.Infrastructure.Services;
     using System.Collections.Generic;
 
     public class LandmarkService : ILandmarkService
@@ -87,13 +88,13 @@
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<bool> UpdateLandmark(UpdateLandmarkRequestModel model, string userId)
+        public async Task<Result> UpdateLandmark(int id, UpdateLandmarkRequestModel model, string userId)
         {
-            var landmark = await this.GetlandmarkByIdAndUserId(model.Id, userId);
+            var landmark = await this.GetlandmarkByIdAndUserId(id, userId);
 
             if (landmark == null)
             {
-                return false;
+                return "This user cannot edit this landmark!";
             }
 
             landmark.IsNationalLandmark = model.IsNationalLandmark;
@@ -110,13 +111,13 @@
             return true;
         }
 
-        public async Task<bool> DeleteLandmark(int id, string userId)
+        public async Task<Result> DeleteLandmark(int id, string userId)
         {
             var landmark = await this.GetlandmarkByIdAndUserId(id, userId);
 
             if (landmark == null)
             {
-                return false;
+                return "This user cannot delete this landmark!";
             }
 
             this.dbContext.Landmarks.Remove(landmark);

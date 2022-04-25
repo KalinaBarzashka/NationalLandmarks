@@ -5,7 +5,6 @@
 
     public class UpdateLandmarkRequestModel
     {
-        public int Id { get; set; }
 
         [Required]
         public bool IsNationalLandmark { get; set; }

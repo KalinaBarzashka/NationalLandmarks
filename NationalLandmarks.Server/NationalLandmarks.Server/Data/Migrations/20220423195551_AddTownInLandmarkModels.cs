@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-#nullable disable
+﻿#nullable disable
 
 namespace NationalLandmarks.Server.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddTownInLandmarkModels : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
