@@ -25,5 +25,11 @@
         public string UserId { get; set; }
 
         public string UserName { get; set; }
+
+        public int VisitsCount { get; set; }
+
+        public int TotalVisits { get; set; }
+
+        public IEnumerable<int?> Grades { get; set; }
     }
 }

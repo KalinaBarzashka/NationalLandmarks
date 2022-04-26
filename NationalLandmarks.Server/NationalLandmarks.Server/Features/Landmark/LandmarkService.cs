@@ -4,32 +4,35 @@
     using Microsoft.EntityFrameworkCore;
     using NationalLandmarks.Server.Data;
     using NationalLandmarks.Server.Features.Landmark.Models;
+    using NationalLandmarks.Server.Features.Visit;
     using NationalLandmarks.Server.Infrastructure.Services;
     using System.Collections.Generic;
 
     public class LandmarkService : ILandmarkService
     {
         private readonly NationalLandmarksDbContext dbContext;
+        private readonly ICurrentUserService currentUserService;
 
-        public LandmarkService(NationalLandmarksDbContext dbContext)
+        public LandmarkService(NationalLandmarksDbContext dbContext, ICurrentUserService currentUserService)
         {
             this.dbContext = dbContext;
+            this.currentUserService = currentUserService;
         }
 
-        public async Task<int> CreateLandmark(CreateLandmarkRequestModel model, string userId)
+        public async Task<int> Create(CreateLandmarkRequestModel model, string userId)
         {
             var landmark = new Landmark
             {
                 Name = model.Name,
                 IsNationalLandmark = model.IsNationalLandmark,
                 Description = model.Description,
-                Town = model.Town,
+                TownId = model.TownId,
                 Address = model.Address,
                 Latitude = model.Latitude,
                 Longitude = model.Longitude,
                 Opens = model.Opens,
                 Closes = model.Closes,
-                WorksOnWeekends = model.WorksOnWeekends == "true" ? true : false,
+                WorksOnWeekends = model.WorksOnWeekends,
                 Email = model.Email,
                 Phone = model.Phone,
                 Website = model.Website,
@@ -44,7 +47,7 @@
             return landmark.Id;
         }
 
-        public async Task<IEnumerable<GetAllLandmarksServiceModel>> GetAllLandmarks()
+        public async Task<IEnumerable<GetAllLandmarksServiceModel>> GetAll()
         {
             return 
                 await this.dbContext
@@ -54,16 +57,21 @@
                     Id = l.Id,
                     Name = l.Name,
                     IsNationalLandmark = l.IsNationalLandmark,
-                    Town = l.Town,
-                    ImageUrl = l.ImageUrl
+                    TownId = l.TownId,
+                    TownName = l.Town.Name,
+                    ImageUrl = l.ImageUrl,
+                    Description = l.Description
                 }).ToListAsync();
         }
 
-        public async Task<LandmarkDetailsServiceModel> GetLandmarkDetailsById(int id)
+        public async Task<LandmarkDetailsServiceModel> GetDetailsById(int id)
         {
+            var userId = this.currentUserService.GetId();
+
             return
                 await this.dbContext
                 .Landmarks
+                .Include(l => l.Visits)
                 .Where(l => l.Id == id)
                 .Select(l => new LandmarkDetailsServiceModel
                 {
@@ -71,7 +79,8 @@
                     Name = l.Name,
                     IsNationalLandmark = l.IsNationalLandmark,
                     Description = l.Description,
-                    Town = l.Town,
+                    TownId = l.TownId,
+                    TownName = l.Town.Name,
                     Address = l.Address,
                     Latitude = l.Latitude,
                     Longitude = l.Longitude,
@@ -83,14 +92,17 @@
                     Website = l.Website,
                     ImageUrl = l.ImageUrl,
                     UserId = l.UserId,
-                    UserName = l.User.UserName
+                    UserName = l.User.UserName,
+                    VisitsCount = l.Visits.Where(v => v.UserId == userId && v.LandmarkId == l.Id).Count(),
+                    TotalVisits = l.Visits.Count(),
+                    Grades = l.Visits.Where(v => v.LandmarkId == l.Id).Select(g => (int?)(g.Grade))
                 })
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<Result> UpdateLandmark(int id, UpdateLandmarkRequestModel model, string userId)
+        public async Task<Result> Update(int id, UpdateLandmarkRequestModel model, string userId)
         {
-            var landmark = await this.GetlandmarkByIdAndUserId(id, userId);
+            var landmark = await this.GetLandmarkByIdAndUserId(id, userId);
 
             if (landmark == null)
             {
@@ -111,9 +123,9 @@
             return true;
         }
 
-        public async Task<Result> DeleteLandmark(int id, string userId)
+        public async Task<Result> Delete(int id, string userId)
         {
-            var landmark = await this.GetlandmarkByIdAndUserId(id, userId);
+            var landmark = await this.GetLandmarkByIdAndUserId(id, userId);
 
             if (landmark == null)
             {
@@ -125,7 +137,7 @@
             return true;
         }
 
-        private async Task<Landmark> GetlandmarkByIdAndUserId(int id, string userId)
+        private async Task<Landmark> GetLandmarkByIdAndUserId(int id, string userId)
         {
             return 
                 await this.dbContext

@@ -21,8 +21,9 @@
         public string Description { get; set; }
 
         [Required]
-        [MaxLength(MaxTownLength)]
-        public string Town { get; set; }
+        public int TownId { get; set; }
+
+        public Town Town { get; set; }
 
         [Required]
         [MaxLength(MaxAddressLength)]
@@ -57,7 +58,6 @@
 
         public User User { get; set; }
 
-        //област и град - връзка към друга таблица!
-        //CreatedOn, UpdatedOn, soft delete - mark entity as deleted (with property isDeleted)
+        public virtual IEnumerable<Visit> Visits { get; set; }
     }
 }

@@ -5,15 +5,15 @@
 
     public interface ILandmarkService
     {
-        public Task<int> CreateLandmark(CreateLandmarkRequestModel model, string userId);
+        public Task<int> Create(CreateLandmarkRequestModel model, string userId);
 
-        public Task<Result> UpdateLandmark(int id, UpdateLandmarkRequestModel model, string userId);
+        public Task<Result> Update(int id, UpdateLandmarkRequestModel model, string userId);
 
-        public Task<Result> DeleteLandmark(int id, string userId);
+        public Task<Result> Delete(int id, string userId);
 
-        public Task<IEnumerable<GetAllLandmarksServiceModel>> GetAllLandmarks();
+        public Task<IEnumerable<GetAllLandmarksServiceModel>> GetAll();
 
-        public Task<LandmarkDetailsServiceModel> GetLandmarkDetailsById(int id);
+        public Task<LandmarkDetailsServiceModel> GetDetailsById(int id);
 
     }
 }

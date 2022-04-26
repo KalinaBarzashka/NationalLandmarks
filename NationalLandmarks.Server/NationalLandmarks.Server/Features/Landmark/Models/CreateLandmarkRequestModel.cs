@@ -18,8 +18,7 @@
         public string Description { get; set; }
 
         [Required]
-        [MaxLength(MaxTownLength)]
-        public string Town { get; set; }
+        public int TownId { get; set; }
 
         [Required]
         [MaxLength(MaxAddressLength)]
@@ -35,7 +34,7 @@
 
         public string? Closes { get; set; }
 
-        public string? WorksOnWeekends { get; set; }
+        public bool? WorksOnWeekends { get; set; }
 
         public string? Email { get; set; }
 

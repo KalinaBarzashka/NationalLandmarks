@@ -2,10 +2,9 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using NationalLandmarks.Server.Data;
     using NationalLandmarks.Server.Features.Landmark.Models;
-    using NationalLandmarks.Server.Infrastructure.Extensions;
     using NationalLandmarks.Server.Infrastructure.Services;
+
     using static Infrastructure.WebConstants;
 
     public class LandmarkController : ApiController
@@ -23,9 +22,9 @@
 
         //[Authorize]
         [HttpGet]
-        public async Task<IEnumerable<GetAllLandmarksServiceModel>> GetAllLandmarks()
+        public async Task<IEnumerable<GetAllLandmarksServiceModel>> GetAll()
         {
-            return await this.landmarkService.GetAllLandmarks();
+            return await this.landmarkService.GetAll();
         }
 
         //[Authorize]
@@ -33,7 +32,7 @@
         [Route(RouteId)]
         public async Task<ActionResult<LandmarkDetailsServiceModel>> Details(int id)
         {
-            var landmark = await this.landmarkService.GetLandmarkDetailsById(id);
+            var landmark = await this.landmarkService.GetDetailsById(id);
 
             return landmark;//landmark.OrNotFound();
         }
@@ -52,7 +51,7 @@
             //string username = this.User.Identity.Name;
             var userId = this.currentUserService.GetId();//this.User.GetId();
 
-            int landmarkId = await this.landmarkService.CreateLandmark(model, userId);
+            int landmarkId = await this.landmarkService.Create(model, userId);
 
             return Created(nameof(this.Create), landmarkId);
         }
@@ -64,7 +63,7 @@
         {
             var userId = this.currentUserService.GetId();
 
-            var result = await this.landmarkService.UpdateLandmark(id, model, userId);
+            var result = await this.landmarkService.Update(id, model, userId);
 
             if (result.Failure)
             {
@@ -81,7 +80,7 @@
         {
             var userId = this.currentUserService.GetId();
 
-            var result = await this.landmarkService.DeleteLandmark(id, userId);
+            var result = await this.landmarkService.Delete(id, userId);
 
             if(result.Failure)
             {

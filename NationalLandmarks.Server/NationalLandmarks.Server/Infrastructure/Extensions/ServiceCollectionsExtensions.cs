@@ -7,8 +7,11 @@
     using Microsoft.OpenApi.Models;
     using NationalLandmarks.Server.Data;
     using NationalLandmarks.Server.Data.Models;
+    using NationalLandmarks.Server.Features.Area;
     using NationalLandmarks.Server.Features.Identity;
     using NationalLandmarks.Server.Features.Landmark;
+    using NationalLandmarks.Server.Features.Town;
+    using NationalLandmarks.Server.Features.Visit;
     using NationalLandmarks.Server.Infrastructure.Filters;
     using NationalLandmarks.Server.Infrastructure.Services;
     using System.Text;
@@ -74,7 +77,10 @@
         {
             return services.AddTransient<IIdentityService, IdentityService>()
                            .AddScoped<ICurrentUserService, CurrentUserService>()
-                           .AddTransient<ILandmarkService, LandmarkService>();
+                           .AddTransient<ILandmarkService, LandmarkService>()
+                           .AddTransient<ITownService, TownService>()
+                           .AddTransient<IVisitService, VisitService>()
+                           .AddTransient<IAreaService, AreaService>();
         }
 
         public static IServiceCollection AddSwagger(this IServiceCollection services)

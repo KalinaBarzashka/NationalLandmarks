@@ -18,9 +18,13 @@
             this.currentUserService = currentUserService;
         }
 
+        public DbSet<Area> Areas { get; set; }
+
+        public DbSet<Town> Towns { get; set; }
+
         public DbSet<Landmark> Landmarks { get; set; }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<Visit> Visits { get; set; }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
@@ -36,15 +40,43 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            var entityTypes = builder.Model.GetEntityTypes().ToList();
+
+            // Disable cascade delete
+            var foreignKeys = entityTypes
+                .SelectMany(e => e.GetForeignKeys().Where(f => f.DeleteBehavior == DeleteBehavior.Cascade));//No action?
+
+            foreach (var foreignKey in foreignKeys)
+            {
+                foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+
             builder.Entity<Landmark>()
                 .HasQueryFilter(l => !l.IsDeleted)
                 .HasOne(l => l.User)
                 .WithMany(u => u.Landmarks)
-                .HasForeignKey(u => u.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(u => u.UserId);
 
             builder.Entity<User>()
                 .HasQueryFilter(u => !u.IsDeleted);
+
+            builder.Entity<Area>()
+                .HasQueryFilter(a => !a.IsDeleted);
+
+            builder.Entity<Town>()
+                .HasQueryFilter(t => !t.IsDeleted);
+
+            //builder.Entity<Visit>().HasKey(v => new { v.UserId, v.LandmarkId });
+            builder.Entity<Visit>()
+                .HasOne(u => u.User)
+                .WithMany(v => v.Visits)
+                .HasForeignKey(u => u.UserId);
+            
+            builder.Entity<Visit>()
+                .HasOne(u => u.Landmark)
+                .WithMany(v => v.Visits)
+                .HasForeignKey(u => u.LandmarkId);
+
 
             base.OnModelCreating(builder);
         }

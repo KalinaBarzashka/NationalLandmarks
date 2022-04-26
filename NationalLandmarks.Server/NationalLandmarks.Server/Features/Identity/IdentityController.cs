@@ -33,7 +33,9 @@
             var user = new User
             {
                 UserName = model.UserName,
-                Email = model.Email
+                Email = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName
             };
             var result = await this.userManager.CreateAsync(user, model.Password);
 
@@ -50,10 +52,10 @@
         public async Task<ActionResult<LoginResponseModel>> Login(LoginRequestModel model)
         {
             var user = await this.userManager.FindByNameAsync(model.UserName);
-            if (user == null) return Unauthorized();
+            if (user == null) return StatusCode(StatusCodes.Status403Forbidden);
 
             var passwordValid = await this.userManager.CheckPasswordAsync(user, model.Password);
-            if (!passwordValid) return Unauthorized();
+            if (!passwordValid) return StatusCode(StatusCodes.Status403Forbidden);
 
             var token = this.identityService.GenerateJwtToken(
                 user.Id,

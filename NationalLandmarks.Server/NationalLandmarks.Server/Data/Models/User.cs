@@ -32,6 +32,8 @@
 
         public string? ModifiedByUsername { get; set; }
 
-        public IEnumerable<Landmark> Landmarks { get; } = new HashSet<Landmark>();
+        public virtual IEnumerable<Landmark> Landmarks { get; } = new HashSet<Landmark>();
+
+        public virtual IEnumerable<Visit> Visits { get; set; }
     }
 }
