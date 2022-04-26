@@ -15,6 +15,9 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
 import { ErrorInterceptorService } from './services/error-interceptor.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { CoreModule } from './core/core.module';
+import { TownService } from './services/town.service';
+import { VisitService } from './services/visit.service';
 
 @NgModule({
   declarations: [
@@ -28,13 +31,17 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     HttpClientModule,
     LandmarkModule,
+    CoreModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
   providers: [
     AuthService,
     LandmarkService,
+    TownService,
+    VisitService,
     AuthGuardService,
+    
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

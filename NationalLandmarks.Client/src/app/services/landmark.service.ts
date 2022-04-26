@@ -3,13 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Landmark } from '../models/Landmark';
-import { AuthService } from './auth.service';
 
 @Injectable()
 export class LandmarkService {
   private landmarkPath = environment.apiUrl + 'landmark';
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient) { }
 
   public create(data: Landmark): Observable<number> {
     //let headers = new HttpHeaders();
@@ -26,8 +25,8 @@ export class LandmarkService {
     return this.http.get<Landmark>(this.landmarkPath + '/' + id);
   }
 
-  public editLandmark(data: any): Observable<any> {
-    return this.http.put(this.landmarkPath, data);
+  public editLandmark(data: Landmark): Observable<any> {
+    return this.http.put(this.landmarkPath + '/' + data.id, data);
   }
 
   public deleteLandmark(id: number) {

@@ -1,0 +1,44 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+main {
+  flex-grow: 1;
+}
+
+.Application__navbar {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  background-color: #90B319;
+  border-bottom: solid 1px rgba(255,255,255,0.15) !important;
+}
+
+.navbar-nav a {
+  color: white;
+}
+.navbar-nav a:hover {
+  text-decoration: underline;
+}
+.navbar-nav a.active {
+  text-decoration: underline;
+  color: #E3752D;
+}
+
+.Application__navbar-brand {
+  display: inline-block;
+  padding-top: .3125rem;
+  padding-bottom: .3125rem;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  line-height: inherit;
+  white-space: nowrap;
+  color: white;
+  text-decoration: none;
+}
+
+.Application__navbar-brand:hover {
+    text-decoration: none;
+}

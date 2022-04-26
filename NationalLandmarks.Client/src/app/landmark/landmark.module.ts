@@ -7,13 +7,15 @@ import { CommonModule } from '@angular/common';
 import { ListLandmarksComponent } from './list-landmarks/list-landmarks.component';
 import { DetailsComponent } from './details/details.component';
 import { EditComponent } from './edit/edit.component';
+import { VisitComponent } from './visit/visit.component';
 
 @NgModule({
   declarations: [
     CreateComponent,
     ListLandmarksComponent,
     DetailsComponent,
-    EditComponent
+    EditComponent,
+    VisitComponent
   ],
   imports: [
     ReactiveFormsModule,

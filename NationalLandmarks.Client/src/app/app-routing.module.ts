@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
 import { CreateComponent } from './landmark/create/create.component';
 import { DetailsComponent } from './landmark/details/details.component';
 import { EditComponent } from './landmark/edit/edit.component';
@@ -9,6 +10,11 @@ import { RegisterComponent } from './register/register.component';
 import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    component: ListLandmarksComponent
+  },
   {
     path: 'login',
     component: LoginComponent
@@ -36,6 +42,11 @@ const routes: Routes = [
     path: 'landmarks/:id/edit',
     component: EditComponent,
     //canActivate: [AuthGuardService]
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    component: PageNotFoundComponent
   }
 ];
 

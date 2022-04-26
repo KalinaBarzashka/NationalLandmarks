@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { map, mergeMap } from 'rxjs';
 import { Landmark } from 'src/app/models/Landmark';
 import { LandmarkService } from 'src/app/services/landmark.service';
@@ -14,12 +15,14 @@ export class EditComponent implements OnInit {
   landmarkForm!: FormGroup;
   landmarkId!: number;
   landmark!: Landmark;
+  landmarkName: string = '';
 
   constructor(
     private fb: FormBuilder, 
     private route: ActivatedRoute, 
     private landmarkService: LandmarkService,
-    private router: Router) 
+    private router: Router,
+    private toastrService: ToastrService) 
   {
     this.landmarkForm = this.fb.group({
       'id': [''],
@@ -41,7 +44,8 @@ export class EditComponent implements OnInit {
 
   editHandler(): void {
     this.landmarkService.editLandmark(this.landmarkForm.value).subscribe(res => {
-      this.router.navigate(['landmarks']);
+      this.toastrService.success("Successfully edited landmark!");
+      this.router.navigate(['/landmarks', this.landmarkForm.controls['id'].value]);
     });
   }
 
@@ -57,6 +61,7 @@ export class EditComponent implements OnInit {
         ))
       .subscribe(res => {
         this.landmark = res;
+        this.landmarkName = res.name;
         this.landmarkForm = this.fb.group({
           'id': [this.landmark.id],
           'isNationalLandmark': [this.landmark.isNationalLandmark],

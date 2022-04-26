@@ -1,10 +1,37 @@
-<div class="container">
-  <div class="row">
-    <div class="col-lg-6">
-      <img [src]="landmark.imageUrl" >
-    </div>
-    <div class="col-lg-6">
+<div class="details-container">
+  <div class="details-img-container">
+    <img [src]="landmark.imageUrl" class="details-img">
+  </div>
+  <div class="details">
+    <div>{{landmark.description}}</div>
+    <div>
       <h3>{{landmark.name}}</h3>
+      <h4>National landmark: {{landmark.isNationalLandmark ? "Yes" : "No"}}</h4>
+      <h4>Contacts:</h4>
+      <p>Town: {{landmark.townName}}</p>
+      <p>Address: {{landmark.address}}</p>
+      <p>Opens: {{landmark.opens}}</p>
+      <p>Closes: {{landmark.closes}}</p>
+      <p>Works on weekends: {{landmark.worksOnWeekends ? "Yes" : "No"}}</p>
+      <br>
+      <p>Email: {{landmark.email}}</p>
+      <p>Phone: {{landmark.phone}}</p>
+      <p>Website: {{landmark.website}}</p>
+      <h5>Landmark grade from users: {{landmarkGrade}} for total visits of: {{landmarkTotalVisits}} users.</h5>
+      <br>
+      <form [formGroup]="form" *ngIf="landmark.isNationalLandmark && landmark.visitsCount == 0 && isLogged" class="rating-form" (ngSubmit)="handleSubmit()">
+        <div class="rating-stars">
+          <ng-template ngFor let-star [ngForOf]="stars">
+            <label for="{{star.id}}">
+              <span class="fa fa-star" ngClass="{{star.checked ? 'checked' : ''}}"></span>
+            </label>
+            <input type="radio" formControlName="grade" id="{{star.id}}" value="{{star.value}}" (click)="handleStarClick(star.value)">
+          </ng-template>
+        </div>
+        <button type="submit" class="btn">Visit landmark</button>
+      </form>
+      <h4 *ngIf="landmark.isNationalLandmark && landmark.visitsCount > 0 && isLogged">Great! You have visited this place!</h4>
     </div>
   </div>
 </div>
+

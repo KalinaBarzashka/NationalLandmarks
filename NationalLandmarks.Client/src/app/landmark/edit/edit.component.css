@@ -1,3 +1,26 @@
 .landmark-edit__container {
   height: 100%;
 }
+
+.edit-button {
+  background-color: #90B319;
+  border-color: #90B319;
+  margin-top: 20px;
+  color: white;
+}
+
+form {
+  border: none;
+  margin-top: 0;
+  padding: 0;
+}
+
+.form-group {
+  padding-bottom: 5px;
+}
+
+h1, h3 {
+  text-align: center;
+  color: #90B319;
+  margin-top: 20px;
+}

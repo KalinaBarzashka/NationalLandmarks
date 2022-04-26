@@ -1,32 +1,59 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-lg-4"></div>
-    <div class="col-lg-4">
-      <form [formGroup]="registerForm" (ngSubmit)="register()">
-        <div class="mb-3">
-          <label for="exampleInputUsername" class="form-label">Username</label>
-          <input type="text" class="form-control" formControlName="username">
+<div class="register_container">
+  <div class="col-12">
+    <h1>Register</h1>
+      <form class="col-6 offset-3" [formGroup]="registerForm" (ngSubmit)="register()">
+        <!-- First Name -->
+        <div class="form-group">
+          <label for="firstName" class="form-label">First Name</label>
+          <input type="text" class="form-control" formControlName="firstName" id="firstName">
+        </div>
+        <div *ngIf="firstName?.touched && firstName?.errors?.['required']" class="alert alert-danger">
+          First name is required!
+        </div>
+        <div *ngIf="firstName?.touched && firstName?.errors?.['maxlength']" class="alert alert-danger">
+          First name must be less than 40 characters!
+        </div>
+        <!-- Last Name -->
+        <div class="form-group">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input type="text" class="form-control" formControlName="lastName" id="lastName">
+        </div>
+        <div *ngIf="lastName?.touched && lastName?.errors?.['required']" class="alert alert-danger">
+          First name is required!
+        </div>
+        <div *ngIf="lastName?.touched && lastName?.errors?.['maxlength']" class="alert alert-danger">
+          Last name must be less than 40 characters!
+        </div>
+        <!-- Username -->
+        <div class="form-group">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" formControlName="username" id="username">
         </div>
         <div *ngIf="username?.touched && username?.errors?.['required']" class="alert alert-danger">
-          This field is required!
+          Username is required!
         </div>
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Email</label>
-          <input type="email" class="form-control" formControlName="email">
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" formControlName="email" id="email">
         </div>
         <div *ngIf="email?.touched && email?.errors?.['required']" class="alert alert-danger">
-          This field is required!
+          Email is required!
         </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input type="password" class="form-control" formControlName="password">
+        <div *ngIf="email?.touched && email?.errors?.['email']" class="alert alert-danger">
+          Email is not valid!
+        </div>
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" formControlName="password" id="password">
         </div>
         <div *ngIf="password?.touched && password?.errors?.['required']" class="alert alert-danger">
-          This field is required!
+          Password is required!
         </div>
-        <button type="submit" class="btn btn-primary">Register</button>
+        <div class="form-group">
+          <button type="submit" [disabled]="registerForm.invalid" class="btn register-button">Register</button>
+        </div>
       </form>
-    </div>
-    <div class="col-lg-4"></div>
   </div>
 </div>

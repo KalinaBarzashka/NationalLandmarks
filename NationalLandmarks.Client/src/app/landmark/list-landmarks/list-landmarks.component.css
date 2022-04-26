@@ -1,0 +1,39 @@
+.landmark-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.landmark-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 320px;
+  border-radius: 5px;
+  background-color: white;
+  position: relative;
+  box-shadow: 5px 5px 10px rgb(0 0 0 / 50%);
+  margin: 8px;
+}
+
+.landmark-img-container {
+  overflow: hidden;
+  height: 300px;
+}
+
+.landmark-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.landmark-body {
+  padding: 20px;
+}
+
+button {
+  margin-left: 5px;
+}

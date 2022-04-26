@@ -1,0 +1,38 @@
+<header>
+  <nav class="Application__navbar navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow">
+    <div class="container">
+        <a class="Application__navbar-brand">National Landmarks</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon bg-light"></span>
+        </button>
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/landmarks" routerLinkActive="active">Landmarks</a>
+                </li>
+                <li *ngIf="isLogged" class="nav-item">
+                    <a class="nav-link" routerLink="/landmark/create" routerLinkActive="active">Create Landmark</a>
+                </li>
+                <li *ngIf="isLogged" class="nav-item">
+                  <a class="nav-link" routerLinkActive="active">Visited Landmarks</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav">
+              <li *ngIf="!isLogged" class="nav-item">
+                <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+              </li>
+              <li *ngIf="isLogged" class="nav-item">
+                <a class="nav-link" (click)="logoutHandler()">Logout</a>
+              </li>
+              <li *ngIf="!isLogged" class="nav-item">
+                <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
+              </li>
+          </ul>
+        </div>
+    </div>
+</nav>
+</header>
+<main class="container">
+  <ng-content></ng-content>
+</main>
+<footer>FOOTER</footer>

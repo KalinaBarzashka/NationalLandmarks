@@ -3,7 +3,8 @@ export interface Landmark {
   name: string;
   isNationalLandmark: boolean;
   description: string;
-  town: string;
+  townId: number;
+  townName: string;
   address: string;
   latitude: string;
   longitude: string;
@@ -16,4 +17,7 @@ export interface Landmark {
   website: string;
   userId: string;
   userName: string;
+  visitsCount: number;
+  totalVisits: number;
+  grades: number[];
 }

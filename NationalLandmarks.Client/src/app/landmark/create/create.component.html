@@ -1,52 +1,123 @@
 <div class="landmark-create__container">
-  <div class="row">
-    <div class="col-lg-3"></div>
-    <div class="col-lg-6">
-      <form [formGroup]="landmarkForm" (ngSubmit)="createHandler()">
-        <div class="form-group">
-          <label for="landmarkName" class="form-label">Landmark Name</label>
-          <input id="landmarkName" type="text" class="form-control" formControlName="name">
-        </div>
-        <div *ngIf="name?.touched && name?.errors?.['required']" class="alert alert-danger">Landmark name is required!</div>
-        <div class="form-check">
-          <input type="checkbox" id="flexCheckDefault" class="form-check-input" formControlName="isNationalLandmark">
-          <label class="form-check-label" for="flexCheckDefault">
-            Landmark is national
-          </label>
-        </div>
-        <div class="form-group">
-          <label for="landmarkDescription" class="form-label">Description</label>
-          <textarea id="landmarkDescription" class="form-control" formControlName="description" rows="3" maxlength ="5000"></textarea>
-        </div>
-        <div *ngIf="description?.touched && description?.errors?.['required']" class="alert alert-danger">Landmark description is required!</div>
-        <div class="form-group">
-          <label for="landmarkTown" class="form-label">Town</label>
-          <input id="landmarkTown" class="form-control" formControlName="town" maxlength ="50">
-        </div>
-        <div *ngIf="town?.touched && town?.errors?.['required']" class="alert alert-danger">Landmark town is required!</div>
-        <div class="form-group">
-          <label for="landmarkAddress" class="form-label">Address</label>
-          <textarea id="landmarkAddress" class="form-control" formControlName="address" rows="2" maxlength ="255"></textarea>
-        </div>
-        <div *ngIf="address?.touched && address?.errors?.['required']" class="alert alert-danger">Landmark address is required!</div>
-        <div class="form-group">
-          <label for="landmarkLatitude" class="form-label">Latitude</label>
-          <input id="landmarkLatitude" type="text" class="form-control" formControlName="latitude" />
-        </div>
-        <div *ngIf="latitude?.touched && latitude?.errors?.['required']" class="alert alert-danger">Landmark latitude is required!</div>
-        <div class="form-group">
-          <label for="landmarkLongitude" class="form-label">Longitude</label>
-          <input id="landmarkLongitude" type="text" class="form-control" formControlName="longitude" />
-        </div>
-        <div *ngIf="longitude?.touched && longitude?.errors?.['required']" class="alert alert-danger">Landmark longitude is required!</div>
-        <div class="form-group">
-          <label for="landmarkImageUrl" class="form-label">Image URL</label>
-          <input id="landmarkImageUrl" type="text" class="form-control" formControlName="imageUrl" />
-        </div>
-        <div *ngIf="imageUrl?.touched && imageUrl?.errors?.['required']" class="alert alert-danger">Image URL is required!</div>
-        <button class="btn btn-primary">Create Landmark</button>
-      </form>
+  <h1>Create Landmark</h1>
+  <form class="row" [formGroup]="landmarkForm" (ngSubmit)="createHandler()">
+    <div class="col">
+      <h3>Main Information</h3>
+      <!-- Landmark Name -->
+      <div class="form-group">
+        <label for="landmarkName" class="form-label">Landmark Name</label>
+        <input id="landmarkName" type="text" class="form-control" formControlName="name">
+      </div>
+      <div *ngIf="name?.touched && name?.errors?.['required']" class="alert alert-danger">Landmark name is required!
+      </div>
+
+      <!-- Landmark is national? -->
+      <div class="form-check">
+        <input type="checkbox" id="flexCheckDefault" class="form-check-input" formControlName="isNationalLandmark">
+        <label class="form-check-label" for="flexCheckDefault">
+          Landmark is national?
+        </label>
+      </div>
+
+      <!-- Landmark Description -->
+      <div class="form-group">
+        <label for="landmarkDescription" class="form-label">Description</label>
+        <textarea id="landmarkDescription" class="form-control" formControlName="description" rows="10" maxlength="5000"></textarea>
+      </div>
+      <div *ngIf="description?.touched && description?.errors?.['required']" class="alert alert-danger">Landmark
+        description is required!</div>
+
+      <!-- Landmark Town -->
+      <div class="form-group">
+        <label for="landmarkTown" class="form-label">Town</label>
+        <select class="form-select" aria-label="Choose landmark's town" formControlName="townId" id="landmarkTown">
+          <option value="" selected>Choose town</option>
+          <option *ngFor="let town of towns" value="{{town.id}}">
+            {{ town.name }}
+          </option>
+        </select>
+      </div>
+      <div *ngIf="town?.touched && town?.errors?.['required']" class="alert alert-danger">Landmark town is required!
+      </div>
+
+      <!-- Landmark Address -->
+      <div class="form-group">
+        <label for="landmarkAddress" class="form-label">Address</label>
+        <textarea id="landmarkAddress" class="form-control" formControlName="address" rows="2"
+          maxlength="255"></textarea>
+      </div>
+      <div *ngIf="address?.touched && address?.errors?.['required']" class="alert alert-danger">Landmark address is
+        required!</div>
+
+      <!-- Landmark Latitude -->
+      <div class="form-group">
+        <label for="landmarkLatitude" class="form-label">Latitude</label>
+        <input id="landmarkLatitude" type="text" class="form-control" formControlName="latitude" />
+      </div>
+      <div *ngIf="latitude?.touched && latitude?.errors?.['required']" class="alert alert-danger">Landmark latitude is
+        required!</div>
+
+      <!-- Landmark Longitude -->
+      <div class="form-group">
+        <label for="landmarkLongitude" class="form-label">Longitude</label>
+        <input id="landmarkLongitude" type="text" class="form-control" formControlName="longitude" />
+      </div>
+      <div *ngIf="longitude?.touched && longitude?.errors?.['required']" class="alert alert-danger">Landmark longitude
+        is required!</div>
+
+      <!-- Landmark Image URL -->
+      <div class="form-group">
+        <label for="landmarkImageUrl" class="form-label">Image URL</label>
+        <input id="landmarkImageUrl" type="text" class="form-control" formControlName="imageUrl" />
+      </div>
+      <div *ngIf="imageUrl?.touched && imageUrl?.errors?.['required']" class="alert alert-danger">Image URL is
+        required!
+      </div>
     </div>
-    <div class="col-lg-3"></div>
-  </div>
+    <div class="col">
+      <h3>Other Details</h3>
+      <!-- Landmark Opens -->
+      <div class="form-group">
+        <label for="landmarkOpens" class="form-label">Opens</label>
+        <input id="landmarkOpens" type="text" class="form-control" formControlName="opens" />
+      </div>
+
+      <!-- Landmark Closes -->
+      <div class="form-group">
+        <label for="landmarkCloses" class="form-label">Closes</label>
+        <input id="landmarkCloses" type="text" class="form-control" formControlName="closes" />
+      </div>
+
+      <!-- Landmark Email -->
+      <div class="form-group">
+        <label for="landmarkEmail" class="form-label">E-mail</label>
+        <input id="landmarkEmail" type="text" class="form-control" formControlName="email" />
+      </div>
+
+      <!-- Landmark Phone -->
+      <div class="form-group">
+        <label for="landmarkPhone" class="form-label">Phone</label>
+        <input id="landmarkPhone" type="text" class="form-control" formControlName="phone" />
+      </div>
+
+      <!-- Landmark Image URL -->
+      <div class="form-group">
+        <label for="landmarkWebsite" class="form-label">Website</label>
+        <input id="landmarkWebsite" type="text" class="form-control" formControlName="website" />
+      </div>
+
+      <!-- Landmark Woorks On Weekends -->
+      <div class="form-check">
+        <input type="checkbox" id="worksOnWeekends" class="form-check-input" formControlName="worksOnWeekends">
+        <label class="form-check-label" for="worksOnWeekends">
+          Works on weekends?
+        </label>
+      </div>
+    </div>
+
+    <!-- Landmark Button Create -->
+    <div class="form-group">
+      <button type="submit" [disabled]="landmarkForm.invalid" class="btn create-button">Create Landmark</button>
+    </div>
+  </form>
 </div>

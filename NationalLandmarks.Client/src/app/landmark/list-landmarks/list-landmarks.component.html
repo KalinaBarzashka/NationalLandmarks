@@ -1,7 +1,23 @@
-<div class="container">
+<div class="landmark-container">
+  <div class="landmark-item" *ngFor="let landmark of landmarks">
+    <div class="landmark-img-container">
+      <img [src]="landmark.imageUrl" class="landmark-img">
+    </div>
+    <div class="landmark-body">
+      <h5 class="card-title">{{landmark.name}}</h5>
+      <p class="card-text">National landmark: {{landmark.isNationalLandmark ? "Yes" : "No"}}</p>
+      <p class="card-text">{{landmark.description.substring(0, 100)}}...</p>
+      <a *ngIf="isLogged" routerLink="/landmarks/{{landmark.id}}" class="btn btn-primary">Check it out!</a>
+      <button *ngIf="isLogged" class="btn btn-warning" (click)="editLandmark(landmark.id)">Edit</button>
+      <button *ngIf="isLogged" class="btn btn-danger" (click)="deleteLandmark(landmark.id)">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="container">
   <div class="row">
     <div class="col-lg-3" *ngFor="let landmark of landmarks">
-      <div class="card" style="width: 18rem;">
+      <div class="card">
         <img [src]="landmark.imageUrl" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">{{landmark.name}}</h5>
@@ -13,5 +29,5 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <!--(click)="routeToLandmark(landmark.id)"-->
