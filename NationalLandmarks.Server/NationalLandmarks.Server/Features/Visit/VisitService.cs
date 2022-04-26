@@ -56,7 +56,7 @@
                     {
                         Name = v.Landmark.Name,
                         IsNationalLandmark = v.Landmark.IsNationalLandmark,
-                        TownId = v.Landmark.TownId,
+                        TownName = v.Landmark.Town.Name,
                         ImageUrl = v.Landmark.ImageUrl
                     }
                 })

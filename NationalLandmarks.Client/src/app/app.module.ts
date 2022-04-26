@@ -3,9 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RegisterComponent } from './register/register.component';
 import { AuthService } from './services/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LandmarkService } from './services/landmark.service';
@@ -18,12 +16,11 @@ import { ToastrModule } from 'ngx-toastr';
 import { CoreModule } from './core/core.module';
 import { TownService } from './services/town.service';
 import { VisitService } from './services/visit.service';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent,
-    RegisterComponent
+    AppComponent
   ],
   imports: [
     BrowserModule, //includes CommonModule (commons directives - ngIf, ngFor...)
@@ -32,6 +29,7 @@ import { VisitService } from './services/visit.service';
     HttpClientModule,
     LandmarkModule,
     CoreModule,
+    UserModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
@@ -41,7 +39,6 @@ import { VisitService } from './services/visit.service';
     TownService,
     VisitService,
     AuthGuardService,
-    
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

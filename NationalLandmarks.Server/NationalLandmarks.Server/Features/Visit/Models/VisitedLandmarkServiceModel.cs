@@ -6,7 +6,7 @@
 
         public bool IsNationalLandmark { get; set; }
 
-        public int TownId { get; set; }
+        public string TownName { get; set; }
 
         public string ImageUrl { get; set; }
     }

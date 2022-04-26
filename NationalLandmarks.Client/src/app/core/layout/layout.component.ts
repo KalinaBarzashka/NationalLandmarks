@@ -21,6 +21,6 @@ export class LayoutComponent implements OnInit, OnChanges {
 
   logoutHandler(): void{
     this.authService.deleteToken();
-    this.router.navigate(['landmarks']);
+    window.location.href = '/landmarks';
   }
 }

@@ -52,6 +52,7 @@
                     FirstName = u.FirstName,
                     LastName = u.LastName,
                     UserName = u.UserName,
+                    Email = u.Email,
                     ProfileImageUrl = u.ProfileImageUrl
                 }).FirstOrDefaultAsync();
         }

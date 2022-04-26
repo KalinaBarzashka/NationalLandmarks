@@ -14,18 +14,21 @@
                     <a class="nav-link" routerLink="/landmark/create" routerLinkActive="active">Create Landmark</a>
                 </li>
                 <li *ngIf="isLogged" class="nav-item">
-                  <a class="nav-link" routerLinkActive="active">Visited Landmarks</a>
+                  <a class="nav-link" routerLink="/visits" routerLinkActive="active">Visited Landmarks</a>
               </li>
             </ul>
             <ul class="navbar-nav">
               <li *ngIf="!isLogged" class="nav-item">
                 <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
               </li>
-              <li *ngIf="isLogged" class="nav-item">
-                <a class="nav-link" (click)="logoutHandler()">Logout</a>
-              </li>
               <li *ngIf="!isLogged" class="nav-item">
                 <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
+              </li>
+              <li *ngIf="isLogged" class="nav-item">
+                <a class="nav-link" routerLink="/profile" routerLinkActive="active">Profile</a>
+              </li>
+              <li *ngIf="isLogged" class="nav-item">
+                <a class="nav-link" (click)="logoutHandler()">Logout</a>
               </li>
           </ul>
         </div>

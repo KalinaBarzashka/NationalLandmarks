@@ -1,0 +1,16 @@
+<div class="visit-container">
+  <div class="visit-item" *ngFor="let visit of visits">
+    <div class="visit-img-container">
+      <img [src]="visit.landmark.imageUrl" class="visit-img">
+    </div>
+    <div class="visit-body">
+      <h5 class="card-title">{{visit.landmark.name}}</h5>
+      <p class="card-text">National landmark: {{visit.landmark.isNationalLandmark ? "Yes" : "No"}}</p>
+      <p>Your grade: {{visit.grade}}</p>
+      <p>Visited on: {{visit.visitedOn}}, in {{visit.landmark.townName}}</p>
+      <a routerLink="/landmarks/{{visit.landmarkId}}" class="btn btn-read-more">Read more!</a>
+    </div>
+  </div>
+</div>
+<!-- (click)="editLandmark(landmark.id)"
+(click)="deleteLandmark(landmark.id)" -->

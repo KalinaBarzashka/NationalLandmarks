@@ -96,7 +96,14 @@ export class DetailsComponent implements OnInit {
   handleSubmit() {
     var visit: Visit = {
       landmarkId: this.landmark.id,
-      grade: this.form.controls['grade'].value
+      grade: this.form.controls['grade'].value,
+      landmark: {
+        name: '',
+        isNationalLandmark: false,
+        townName: '',
+        imageUrl: ''
+      },
+      visitedOn: new Date()
     }
 
     this.visitService.visitLandmark(visit).subscribe(res => {

@@ -5,9 +5,11 @@ import { CreateComponent } from './landmark/create/create.component';
 import { DetailsComponent } from './landmark/details/details.component';
 import { EditComponent } from './landmark/edit/edit.component';
 import { ListLandmarksComponent } from './landmark/list-landmarks/list-landmarks.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './user/login/login.component';
+import { RegisterComponent } from './user/register/register.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { VisitComponent } from './user/visit/visit.component';
+import { ProfileComponent } from './user/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -22,6 +24,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent
   },
   {
     path: 'landmark/create',
@@ -41,7 +47,12 @@ const routes: Routes = [
   {
     path: 'landmarks/:id/edit',
     component: EditComponent,
-    //canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'visits',
+    component: VisitComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: '**',

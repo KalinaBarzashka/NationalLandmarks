@@ -1,4 +1,4 @@
-.landmark-container {
+.user-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -6,40 +6,54 @@
   padding-right: 5px;
 }
 
-.landmark-item {
+.user-item {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 320px;
-  border-radius: 5px;
+  border-radius: 15px;
   background-color: white;
   position: relative;
   box-shadow: 5px 5px 10px rgb(0 0 0 / 50%);
   margin: 8px;
 }
 
-.landmark-img-container {
+.user-img-container {
   overflow: hidden;
   height: 300px;
 }
 
-.landmark-img {
+.user-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
+  border-radius: 15px;
 }
 
-.landmark-body {
+.user-body {
   padding: 20px;
 }
 
-button {
-  margin-left: 5px;
+form {
+  border: none;
+  padding: 0;
+  margin: 0;
 }
 
-.btn-read-more {
+.btn {
+  margin-top: 10px;
+}
+
+.btn-save {
+  color: #fff;
   background-color: #90B319;
   border-color: #90B319;
-  color: white;
+  margin-right: 10px;
+}
+
+.btn-edit {
+  color: #fff;
+  background-color: #90B319;
+  border-color: #90B319;
 }

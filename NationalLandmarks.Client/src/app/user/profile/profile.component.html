@@ -1,0 +1,59 @@
+<div class="user-container">
+  <div class="user-item">
+    <div class="user-img-container">
+      <img [src]="user.profileImageUrl ? user.profileImageUrl : '../../assets/profile.jpg'" class="user-img">
+    </div>
+    <div class="user-body">
+      <h5 class="card-title">Profile info</h5>
+      <ng-container *ngTemplateOutlet="inEditMode ? editMode : infoMode"></ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #infoMode>
+  <p class="card-text">First Name: {{user.firstName}}</p>
+  <p class="card-text">Last Name: {{user.lastName}}</p>
+  <p class="card-text">Username: {{user.userName}}</p>
+  <p class="card-text">E-mail: {{user.email}}</p>
+  <button class="btn btn-edit" (click)="toggleEditMode()">Edit Profile</button>
+</ng-template>
+<ng-template #editMode>
+  <form [formGroup]="profileForm" (ngSubmit)="submitHandler()">
+    <div class="form-group">
+      <label for="firstName" class="form-label">First Name</label>
+      <input type="text" class="form-control" formControlName="firstName" id="firstName">
+    </div>
+    <div *ngIf="firstName?.touched && firstName?.errors?.['required']" class="alert alert-danger">
+      First name is required!
+    </div>
+    <!-- Last name-->
+    <div class="form-group">
+      <label for="lastName" class="form-label">Last Name</label>
+      <input type="text" class="form-control" formControlName="lastName" id="lastName">
+    </div>
+    <div *ngIf="lastName?.touched && lastName?.errors?.['required']" class="alert alert-danger">
+      Last name is required!
+    </div>
+    <!-- Username -->
+    <div class="form-group">
+      <label for="userName" class="form-label">Username</label>
+      <input type="text" class="form-control" formControlName="userName" id="userName">
+    </div>
+    <div *ngIf="userName?.touched && userName?.errors?.['required']" class="alert alert-danger">
+      Username is required!
+    </div>
+    <!-- E-mail -->
+    <div class="form-group">
+      <label for="email" class="form-label">E-mail</label>
+      <input type="text" class="form-control" formControlName="email" id="email">
+    </div>
+    <div *ngIf="email?.touched && email?.errors?.['required']" class="alert alert-danger">
+      Email is required!
+    </div>
+    <div *ngIf="email?.touched && email?.errors?.['email']" class="alert alert-danger">
+      Email is not valid!
+    </div>
+    <button type="submit" class="btn btn-save">Save</button>
+    <button type="submit" class="btn btn-danger" (click)="toggleEditMode()">Cancel</button>
+  </form>
+</ng-template>

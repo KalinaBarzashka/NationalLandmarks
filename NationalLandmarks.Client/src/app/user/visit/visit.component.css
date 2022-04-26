@@ -1,4 +1,4 @@
-.landmark-container {
+.visit-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -6,7 +6,7 @@
   padding-right: 5px;
 }
 
-.landmark-item {
+.visit-item {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -18,24 +18,20 @@
   margin: 8px;
 }
 
-.landmark-img-container {
+.visit-img-container {
   overflow: hidden;
   height: 300px;
 }
 
-.landmark-img {
+.visit-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
 }
 
-.landmark-body {
+.visit-body {
   padding: 20px;
-}
-
-button {
-  margin-left: 5px;
 }
 
 .btn-read-more {
