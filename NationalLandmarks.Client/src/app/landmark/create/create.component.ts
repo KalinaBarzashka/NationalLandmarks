@@ -68,7 +68,7 @@ export class CreateComponent {
     console.log(this.landmarkForm.value);
     this.landmarkService.create(this.landmarkForm.value).subscribe(res => {
       this.toastrService.success("Successfully created landmark!");
-      this.router.navigate(['/landmarks']);
+      this.router.navigate(['/landmarks/1']);
     });
   }
 

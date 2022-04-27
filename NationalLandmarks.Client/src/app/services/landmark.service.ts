@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Landmark } from '../models/Landmark';
+import { LandmarksPagination } from '../models/LandmarksPagination';
 
 @Injectable()
 export class LandmarkService {
@@ -17,9 +18,13 @@ export class LandmarkService {
     return this.http.post<number>(this.landmarkPath, data);
   }
 
-  public getLandmarks(): Observable<Array<Landmark>> {
-    return this.http.get<Array<Landmark>>(this.landmarkPath);
+  public getLandmarks(pageNumber: number = 1): Observable<LandmarksPagination> {
+    return this.http.get<LandmarksPagination>(this.landmarkPath+ '/' + pageNumber);
   }
+
+  // public getLandmarks(pageNumber: number = 1): Observable<Array<Landmark>> {
+  //   return this.http.get<Array<Landmark>>(this.landmarkPath+ '/' + pageNumber);
+  // }
 
   public getLandmark(id: number): Observable<Landmark> {
     return this.http.get<Landmark>(this.landmarkPath + '/' + id);

@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   login() : void {
     this.authService.login(this.loginForm.value).subscribe(data => {
       this.authService.saveToken(data['token']);
-      window.location.href = '/landmarks';
+      window.location.href = '/landmarks/1';
     });
   }
 

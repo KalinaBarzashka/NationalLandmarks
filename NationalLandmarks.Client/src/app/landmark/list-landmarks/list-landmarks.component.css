@@ -43,3 +43,8 @@ button {
   border-color: #90B319;
   color: white;
 }
+
+.disabled {
+  pointer-events:none;
+  opacity:0.4;
+}

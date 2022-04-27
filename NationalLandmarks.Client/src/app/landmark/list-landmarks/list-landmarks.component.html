@@ -1,4 +1,8 @@
-<div class="landmark-container">
+<div class="text-center" *ngIf="status == 'INIT' || status == 'LOADING'">
+  <div class="spinner-border text-success" role="status"></div>
+</div>
+
+<div *ngIf="status == 'SUCCESS'" class="landmark-container">
   <div class="landmark-item" *ngFor="let landmark of landmarks">
     <div class="landmark-img-container">
       <img [src]="landmark.imageUrl" class="landmark-img">
@@ -7,9 +11,30 @@
       <h5 class="card-title">{{landmark.name}}</h5>
       <p class="card-text">National landmark: {{landmark.isNationalLandmark ? "Yes" : "No"}}</p>
       <p class="card-text">{{landmark.description.substring(0, 100)}}...</p>
-      <a *ngIf="isLogged" routerLink="/landmarks/{{landmark.id}}" class="btn btn-read-more">Read more!</a>
+      <a *ngIf="isLogged" routerLink="/landmarks/details/{{landmark.id}}" class="btn btn-read-more">Read more!</a>
       <button *ngIf="isLogged" class="btn btn-warning" (click)="editLandmark(landmark.id)">Edit</button>
       <button *ngIf="isLogged" class="btn btn-danger" (click)="deleteLandmark(landmark.id)">Delete</button>
     </div>
   </div>
 </div>
+
+<hr />
+<nav aria-label="..." *ngIf="status == 'SUCCESS'">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" [ngClass]="pagingModel.hasPreviousPage ? '' : 'disabled'">
+      <a class="page-link" routerLink="/landmarks/{{pagingModel.previousPageNumber}}">Previous</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" *ngIf="pagingModel.previousPageNumber > 0" routerLink="/landmarks/{{pagingModel.previousPageNumber}}">{{pagingModel.previousPageNumber}}</a>
+    </li>
+    <li class="page-item active">
+      <a class="page-link" routerLink="/landmarks/{{pagingModel.pageNumber}}">{{pagingModel.pageNumber}}<span class="sr-only">(current)</span></a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" *ngIf="pagingModel.nextPageNumber <= pagingModel.pagesCount" routerLink="/landmarks/{{pagingModel.nextPageNumber}}">{{pagingModel.nextPageNumber}}</a>
+    </li>
+    <li class="page-item" [ngClass]="pagingModel.hasNextPage ? '' : 'disabled'">
+      <a class="page-link" routerLink="/landmarks/{{pagingModel.nextPageNumber}}">Next</a>
+    </li>
+  </ul>
+</nav>

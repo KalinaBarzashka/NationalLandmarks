@@ -35,12 +35,12 @@ const routes: Routes = [
     canActivate: [AuthGuardService]
   },
   {
-    path: 'landmarks',
+    path: 'landmarks/:id',
     component: ListLandmarksComponent,
     //canActivate: [AuthGuardService]
   },
   {
-    path: 'landmarks/:id',
+    path: 'landmarks/details/:id',
     component: DetailsComponent,
     //canActivate: [AuthGuardService]
   },

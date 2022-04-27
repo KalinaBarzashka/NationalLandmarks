@@ -4,7 +4,6 @@
     using Microsoft.EntityFrameworkCore;
     using NationalLandmarks.Server.Data;
     using NationalLandmarks.Server.Features.Landmark.Models;
-    using NationalLandmarks.Server.Features.Visit;
     using NationalLandmarks.Server.Infrastructure.Services;
     using System.Collections.Generic;
 
@@ -47,11 +46,13 @@
             return landmark.Id;
         }
 
-        public async Task<IEnumerable<GetAllLandmarksServiceModel>> GetAll()
+        public async Task<GetAllLandmarksPaginationServiceModel> GetAll(int pageNumber, int itemsPerPage)
         {
-            return 
-                await this.dbContext
+            var landmarksData = await this.dbContext
                 .Landmarks
+                .OrderBy(x => x.Id)
+                .Skip((pageNumber - 1) * itemsPerPage)
+                .Take(itemsPerPage)
                 .Select(l => new GetAllLandmarksServiceModel
                 {
                     Id = l.Id,
@@ -62,6 +63,16 @@
                     ImageUrl = l.ImageUrl,
                     Description = l.Description
                 }).ToListAsync();
+
+            var landmarks = new GetAllLandmarksPaginationServiceModel
+            {
+                Landmarks = landmarksData,
+                PageNumber = pageNumber,
+                ItemsPerPage = itemsPerPage,
+                TotalItemsCount = GetAllLandmarksCount()
+            };
+
+            return landmarks;
         }
 
         public async Task<LandmarkDetailsServiceModel> GetDetailsById(int id)
@@ -144,6 +155,11 @@
                .Landmarks
                .Where(l => l.Id == id && l.UserId == userId)
                .FirstOrDefaultAsync();
+        }
+
+        private int GetAllLandmarksCount()
+        {
+            return this.dbContext.Landmarks.Select(x => x.Id).Count();
         }
     }
 }

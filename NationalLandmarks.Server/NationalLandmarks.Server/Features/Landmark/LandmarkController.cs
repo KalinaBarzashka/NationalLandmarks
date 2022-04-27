@@ -9,6 +9,7 @@
 
     public class LandmarkController : ApiController
     {
+        private const int itemsPerPage = 9;
         private readonly ILandmarkService landmarkService;
         private readonly ICurrentUserService currentUserService;
 
@@ -22,14 +23,16 @@
 
         //[Authorize]
         [HttpGet]
-        public async Task<IEnumerable<GetAllLandmarksServiceModel>> GetAll()
+        [Route(RouteId)]
+        public async Task<GetAllLandmarksPaginationServiceModel> GetAll(int id = 1)
         {
-            return await this.landmarkService.GetAll();
+            //id is page number
+            return await this.landmarkService.GetAll(id, itemsPerPage);
         }
 
         //[Authorize]
         [HttpGet]
-        [Route(RouteId)]
+        [Route("details/" + RouteId)]
         public async Task<ActionResult<LandmarkDetailsServiceModel>> Details(int id)
         {
             var landmark = await this.landmarkService.GetDetailsById(id);

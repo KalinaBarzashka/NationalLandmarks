@@ -11,7 +11,7 @@
 
         public Task<Result> Delete(int id, string userId);
 
-        public Task<IEnumerable<GetAllLandmarksServiceModel>> GetAll();
+        public Task<GetAllLandmarksPaginationServiceModel> GetAll(int pageNumber, int itemsPerPage);
 
         public Task<LandmarkDetailsServiceModel> GetDetailsById(int id);
 
