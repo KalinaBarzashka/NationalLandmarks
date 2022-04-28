@@ -65,7 +65,6 @@ export class CreateComponent {
   }
 
   createHandler(): void {
-    console.log(this.landmarkForm.value);
     this.landmarkService.create(this.landmarkForm.value).subscribe(res => {
       this.toastrService.success("Successfully created landmark!");
       this.router.navigate(['/landmarks/1']);

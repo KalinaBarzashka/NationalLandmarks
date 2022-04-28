@@ -6,8 +6,8 @@ export interface Landmark {
   townId: number;
   townName: string;
   address: string;
-  latitude: string;
-  longitude: string;
+  latitude: number;
+  longitude: number;
   imageUrl: string;
   opens: string;
   closes: string;

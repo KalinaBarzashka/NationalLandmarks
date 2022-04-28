@@ -1,4 +1,8 @@
-<div class="details-container">
+<div class="text-center" *ngIf="status == 'INIT' || status == 'LOADING'">
+  <div class="spinner-border text-success" role="status"></div>
+</div>
+
+<div *ngIf="status == 'SUCCESS'" class="details-container">
   <div class="details-img-container">
     <img [src]="landmark.imageUrl" onError="this.src='assets/missing_content.png'" class="details-img">
   </div>
@@ -17,7 +21,8 @@
       <p>Email: {{landmark.email}}</p>
       <p>Phone: {{landmark.phone}}</p>
       <p>Website: {{landmark.website}}</p>
-      <h5>Landmark grade from users: {{landmarkGrade}} for total visits of: {{landmarkTotalVisits}} users.</h5>
+      <h5 *ngIf="landmarkTotalVisits > 0">Landmark grade from users: {{landmarkGrade}} for total visits of: {{landmarkTotalVisits}} users.</h5>
+      <h5 *ngIf="landmarkTotalVisits == 0">No visits from users yet.</h5>
       <br>
       <form [formGroup]="form" *ngIf="landmark.isNationalLandmark && landmark.visitsCount == 0 && isLogged" class="rating-form" (ngSubmit)="handleSubmit()">
         <div class="rating-stars">
@@ -28,9 +33,10 @@
             <input type="radio" formControlName="grade" id="{{star.id}}" value="{{star.value}}" (click)="handleStarClick(star.value)">
           </ng-template>
         </div>
-        <button type="submit" class="btn">Visit landmark</button>
+        <button [disabled]="!canVisit" type="submit" class="btn">Visit landmark</button>
       </form>
       <h4 *ngIf="landmark.isNationalLandmark && landmark.visitsCount > 0 && isLogged">Great! You have visited this place!</h4>
+      <h4 *ngIf="landmark.isNationalLandmark && landmark.visitsCount == 0 && !isLogged">Register or log in to visit this place!</h4>
     </div>
   </div>
 </div>
