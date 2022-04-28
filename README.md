@@ -9,7 +9,7 @@
 
 NationalLandmarks is my defense project for Softuni Angular course.  
 The software is powered by C#/.NET 6 back-end and supports MSSQL database. The front-end part is implemented via Angular and RxJS. The project overview, functionalities, architecture and technology stack is reviewed bellow.  
-![Screenshot](readme_img.PNG.png?raw=true "NationalLandmarks")
+![Screenshot](readme_img.png?raw=true "NationalLandmarks")
 
 ## :pencil: Overview
 
