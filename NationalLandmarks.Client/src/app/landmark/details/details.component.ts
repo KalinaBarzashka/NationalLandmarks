@@ -103,12 +103,12 @@ export class DetailsComponent implements OnInit {
         townName: '',
         imageUrl: ''
       },
-      visitedOn: new Date()
+      visitedOn: ''
     }
 
     this.visitService.visitLandmark(visit).subscribe(res => {
       this.toastrService.success("Successfully visited!");
-      this.router.navigate(['/landmarks']);
+      this.router.navigate(['/landmarks/1']);
     });
   }
 

@@ -61,7 +61,8 @@
                     TownId = l.TownId,
                     TownName = l.Town.Name,
                     ImageUrl = l.ImageUrl,
-                    Description = l.Description
+                    Description = l.Description,
+                    UserId = l.UserId
                 }).ToListAsync();
 
             var landmarks = new GetAllLandmarksPaginationServiceModel

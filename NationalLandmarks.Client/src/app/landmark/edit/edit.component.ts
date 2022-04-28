@@ -16,6 +16,7 @@ export class EditComponent implements OnInit {
   landmarkId!: number;
   landmark!: Landmark;
   landmarkName: string = '';
+  status: string = 'INIT';
 
   constructor(
     private fb: FormBuilder, 
@@ -45,11 +46,12 @@ export class EditComponent implements OnInit {
   editHandler(): void {
     this.landmarkService.editLandmark(this.landmarkForm.value).subscribe(res => {
       this.toastrService.success("Successfully edited landmark!");
-      this.router.navigate(['/landmarks', this.landmarkForm.controls['id'].value]);
+      this.router.navigate(['/landmarks/details', this.landmarkForm.controls['id'].value]);
     });
   }
 
   fetchData() {
+    this.status = 'LOADING';
     this.route.params
       .pipe(
         map(params => {
@@ -74,6 +76,7 @@ export class EditComponent implements OnInit {
           'website': [this.landmark.website],      
           'imageUrl': [this.landmark.imageUrl, [Validators.required]]
         });
+        this.status = 'SUCCESS';
       });
   }
 }

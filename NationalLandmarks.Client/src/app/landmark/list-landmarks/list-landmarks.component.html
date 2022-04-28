@@ -5,15 +5,15 @@
 <div *ngIf="status == 'SUCCESS'" class="landmark-container">
   <div class="landmark-item" *ngFor="let landmark of landmarks">
     <div class="landmark-img-container">
-      <img [src]="landmark.imageUrl" class="landmark-img">
+      <img [src]="landmark.imageUrl" onError="this.src='assets/missing_content.png'" class="landmark-img">
     </div>
     <div class="landmark-body">
       <h5 class="card-title">{{landmark.name}}</h5>
       <p class="card-text">National landmark: {{landmark.isNationalLandmark ? "Yes" : "No"}}</p>
       <p class="card-text">{{landmark.description.substring(0, 100)}}...</p>
       <a *ngIf="isLogged" routerLink="/landmarks/details/{{landmark.id}}" class="btn btn-read-more">Read more!</a>
-      <button *ngIf="isLogged" class="btn btn-warning" (click)="editLandmark(landmark.id)">Edit</button>
-      <button *ngIf="isLogged" class="btn btn-danger" (click)="deleteLandmark(landmark.id)">Delete</button>
+      <button *ngIf="isLogged && landmark.userId == userId" class="btn btn-warning" (click)="editLandmark(landmark.id)">Edit</button>
+      <button *ngIf="isLogged && landmark.userId == userId" class="btn btn-danger" (click)="deleteLandmark(landmark.id, pagingModel.pageNumber)">Delete</button>
     </div>
   </div>
 </div>

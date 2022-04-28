@@ -2,7 +2,7 @@ export interface Visit {
   landmarkId: number;
   landmark: VisitLandmark;
   grade: number;
-  visitedOn: Date;
+  visitedOn: string;
 }
 
 export interface VisitLandmark {

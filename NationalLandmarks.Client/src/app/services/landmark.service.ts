@@ -22,12 +22,8 @@ export class LandmarkService {
     return this.http.get<LandmarksPagination>(this.landmarkPath+ '/' + pageNumber);
   }
 
-  // public getLandmarks(pageNumber: number = 1): Observable<Array<Landmark>> {
-  //   return this.http.get<Array<Landmark>>(this.landmarkPath+ '/' + pageNumber);
-  // }
-
   public getLandmark(id: number): Observable<Landmark> {
-    return this.http.get<Landmark>(this.landmarkPath + '/' + id);
+    return this.http.get<Landmark>(this.landmarkPath + '/details/' + id);
   }
 
   public editLandmark(data: Landmark): Observable<any> {

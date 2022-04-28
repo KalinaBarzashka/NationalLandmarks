@@ -1,4 +1,8 @@
-<div class="landmark-edit__container">
+<div class="text-center" *ngIf="status == 'INIT' || status == 'LOADING'">
+  <div class="spinner-border text-success" role="status"></div>
+</div>
+
+<div *ngIf="status == 'SUCCESS'" class="landmark-edit__container">
   <h1>Edit Landmark "{{landmarkName}}"</h1>
   <form class="row" [formGroup]="landmarkForm" (ngSubmit)="editHandler()">
     <div class="col">

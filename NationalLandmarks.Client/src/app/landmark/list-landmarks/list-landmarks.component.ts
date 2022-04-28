@@ -6,6 +6,7 @@ import { Landmark } from 'src/app/models/Landmark';
 import { Pagination } from 'src/app/models/Pagination';
 import { AuthService } from 'src/app/services/auth.service';
 import { LandmarkService } from 'src/app/services/landmark.service';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-list-landmarks',
@@ -18,6 +19,7 @@ export class ListLandmarksComponent implements OnInit, OnDestroy {
   pagingModel!: Pagination;
   status: string = 'INIT';
   subscription!: Subscription;
+  userId: string = '';
 
   constructor(
     private landmarkService: LandmarkService,
@@ -33,12 +35,22 @@ export class ListLandmarksComponent implements OnInit, OnDestroy {
         filter((route: ActivatedRoute) => route.outlet === 'primary'),
       ).subscribe(event  => {
         var pageId = 1;
-        if(!isNaN(Number(route.snapshot.paramMap.get('id')))) {
-          pageId = Number(route.snapshot.paramMap.get('id'));
-          this.fetchLandmarks(pageId);
+        if(!isNaN(Number(route.snapshot.params['id']))) {
+          pageId = Number(route.snapshot.params['id']);
+          if(pageId == 0) {
+            pageId = 1;
+          }
         }
-        
+        this.fetchLandmarks(pageId);
       });
+
+      const tokenString = this.authService.getToken();
+      if(tokenString == null) {
+        return;
+      }
+
+      const tokenInfo = this.getDecodedAccessToken(tokenString); // decode token
+      this.userId = tokenInfo.nameid;
     }
 
   ngOnInit(): void {
@@ -68,10 +80,10 @@ export class ListLandmarksComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteLandmark(id: number): void {
+  deleteLandmark(id: number, pageNumber: number = 1): void {
     this.landmarkService.deleteLandmark(id).subscribe(res => {
       this.toastrService.success("Successfully deleted landmark!");
-      this.fetchLandmarks();
+      this.fetchLandmarks(pageNumber);
     });
   }
 
@@ -84,6 +96,14 @@ export class ListLandmarksComponent implements OnInit, OnDestroy {
       route = route.firstChild;
     }
     return route;
+  }
+
+  private getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    } catch(Error) {
+      return null;
+    }
   }
 
 }

@@ -1,6 +1,6 @@
 <div class="details-container">
   <div class="details-img-container">
-    <img [src]="landmark.imageUrl" class="details-img">
+    <img [src]="landmark.imageUrl" onError="this.src='assets/missing_content.png'" class="details-img">
   </div>
   <div class="details">
     <div>{{landmark.description}}</div>
