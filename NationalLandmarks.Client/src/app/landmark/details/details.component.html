@@ -24,7 +24,7 @@
       <h5 *ngIf="landmarkTotalVisits > 0">Landmark grade from users: {{landmarkGrade}} for total visits of: {{landmarkTotalVisits}} users.</h5>
       <h5 *ngIf="landmarkTotalVisits == 0">No visits from users yet.</h5>
       <br>
-      <form [formGroup]="form" *ngIf="landmark.isNationalLandmark && landmark.visitsCount == 0 && isLogged" class="rating-form" (ngSubmit)="handleSubmit()">
+      <form [formGroup]="form" *ngIf="landmark.visitsCount == 0 && isLogged" class="rating-form" (ngSubmit)="handleSubmit()">
         <div class="rating-stars">
           <ng-template ngFor let-star [ngForOf]="stars">
             <label for="{{star.id}}">
@@ -35,8 +35,8 @@
         </div>
         <button [disabled]="!canVisit" type="submit" class="btn">Visit landmark</button>
       </form>
-      <h4 *ngIf="landmark.isNationalLandmark && landmark.visitsCount > 0 && isLogged">Great! You have visited this place!</h4>
-      <h4 *ngIf="landmark.isNationalLandmark && landmark.visitsCount == 0 && !isLogged">Register or log in to visit this place!</h4>
+      <h4 *ngIf="landmark.visitsCount > 0 && isLogged">Great! You have visited this place!</h4>
+      <h4 *ngIf="landmark.visitsCount == 0 && !isLogged">Register or log in to visit this place!</h4>
     </div>
   </div>
 </div>

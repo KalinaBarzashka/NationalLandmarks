@@ -1,5 +1,6 @@
 ﻿namespace NationalLandmarks.Server.Features.Identity
 {
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.IdentityModel.Tokens;
     using NationalLandmarks.Server.Data;
@@ -14,10 +15,12 @@
     public class IdentityService : IIdentityService
     {
         private readonly NationalLandmarksDbContext dbContext;
+        private readonly UserManager<User> userManager;
 
-        public IdentityService(NationalLandmarksDbContext dbContext)
+        public IdentityService(NationalLandmarksDbContext dbContext, UserManager<User> userManager)
         {
             this.dbContext = dbContext;
+            this.userManager = userManager;
         }
 
         public string GenerateJwtToken(string userId, string userName, string secret)
@@ -97,7 +100,12 @@
                     return "The provided e-mail is already taken!";
                 }
 
-                user.Email = modelEmail;
+                var userDb = await this.userManager.FindByIdAsync(userId);
+                if (userDb == null)
+                {
+                    return "User not found!";
+                }
+                await this.userManager.SetEmailAsync(userDb, modelEmail);
             }
 
             return true;
@@ -116,7 +124,12 @@
                     return "The provided username is already taken!";
                 }
 
-                user.UserName = modelUserName;
+                var userDb = await this.userManager.FindByIdAsync(userId);
+                if(userDb == null)
+                {
+                    return "User not found!";
+                }
+                await this.userManager.SetUserNameAsync(userDb, modelUserName);                
             }
 
             return true;
