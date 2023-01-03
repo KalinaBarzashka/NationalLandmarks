@@ -4,7 +4,7 @@
 
     public interface IVisitService
     {
-        Task<int> AddVisitedLandmarkForUser(int landmarkId, int? grade, string? userId);
+        Task<int> AddVisitedLandmarkForUser(int landmarkId, int? grade, string? comment, string? userId);
 
         Task<IEnumerable<GetAllVisitsByUserServiceModel>> GetAllByUserId(string? userId);
 

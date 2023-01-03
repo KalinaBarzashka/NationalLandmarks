@@ -15,7 +15,7 @@
             this.dbContext = dbContext;
         }
 
-        public async Task<int> AddVisitedLandmarkForUser(int landmarkId, int? grade, string? userId)
+        public async Task<int> AddVisitedLandmarkForUser(int landmarkId, int? grade, string? comment, string? userId)
         {
             var visitExists = this.dbContext
                 .Visits
@@ -32,7 +32,8 @@
                 UserId = userId,
                 LandmarkId = landmarkId,
                 VisitedOn = DateTime.UtcNow,
-                Grade = grade != null ? (Grade)grade : 0
+                Grade = grade != null ? (Grade)grade : 0,
+                Comment = comment != null ? comment : ""
             };
 
             this.dbContext.Add(visit);
@@ -52,6 +53,7 @@
                     LandmarkId = v.LandmarkId,
                     Grade = v.Grade,
                     VisitedOn = v.VisitedOn,
+                    Comment = v.Comment,
                     Landmark = new VisitedLandmarkServiceModel
                     {
                         Name = v.Landmark.Name,

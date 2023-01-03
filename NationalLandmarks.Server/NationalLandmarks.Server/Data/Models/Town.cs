@@ -11,7 +11,7 @@
 
         [Required]
         [MaxLength(MaxNameLength)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Required]
         public int AreaId { get; set; }

@@ -10,6 +10,8 @@
         [MaxLength(MaxNameLength)]
         public string Name { get; set; }
 
+        public string? RegistrationNumber { get; set; }
+
         [Required]
         public bool IsNationalLandmark { get; set; }
 
@@ -30,9 +32,11 @@
         [Required]
         public double Longitude { get; set; }
 
-        public string? Opens { get; set; }
+        public string? WorkingTime { get; set; }
 
-        public string? Closes { get; set; }
+        //public string? Opens { get; set; }
+
+        //public string? Closes { get; set; }
 
         public bool? WorksOnWeekends { get; set; }
 

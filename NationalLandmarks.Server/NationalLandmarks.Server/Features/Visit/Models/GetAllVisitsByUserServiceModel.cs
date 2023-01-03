@@ -13,5 +13,7 @@
         public DateTime VisitedOn { get; set; }
 
         public Grade? Grade { get; set; }
+
+        public string? Comment { get; set; }
     }
 }

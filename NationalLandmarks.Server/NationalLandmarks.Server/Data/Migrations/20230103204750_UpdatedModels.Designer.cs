@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NationalLandmarks.Server.Data;
 
@@ -11,9 +12,10 @@ using NationalLandmarks.Server.Data;
 namespace NationalLandmarks.Server.Data.Migrations
 {
     [DbContext(typeof(NationalLandmarksDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230103204750_UpdatedModels")]
+    partial class UpdatedModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -257,9 +259,6 @@ namespace NationalLandmarks.Server.Data.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RegistrationNumber")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("TownId")
                         .HasColumnType("int");
 
@@ -268,9 +267,6 @@ namespace NationalLandmarks.Server.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Website")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WorkingTime")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("WorksOnWeekends")

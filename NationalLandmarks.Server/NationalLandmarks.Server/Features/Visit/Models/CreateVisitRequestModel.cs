@@ -8,5 +8,7 @@
         public int LandmarkId { get; set; }
 
         public int? Grade { get; set; }
+
+        public string? Comment { get; set; }
     }
 }

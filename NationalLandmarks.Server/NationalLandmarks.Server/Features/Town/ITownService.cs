@@ -12,5 +12,7 @@
         Task<Result> Update(int id, UpdateTownRequestModel model, string? userId);
 
         Task<Result> Delete(int id, string? userId);
+
+        Task<Result> CheckIfIdExists(int id);
     }
 }

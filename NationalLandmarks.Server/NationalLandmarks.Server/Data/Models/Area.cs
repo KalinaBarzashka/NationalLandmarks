@@ -11,7 +11,7 @@
 
         [Required]
         [MaxLength(MaxNameLength)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         public bool IsDeleted { get; set; }
 
@@ -27,6 +27,6 @@
 
         public string? ModifiedByUsername { get; set; }
 
-        public IEnumerable<Town> Towns { get; set; } = new HashSet<Town>();
+        public virtual IEnumerable<Town> Towns { get; set; } = new HashSet<Town>();
     }
 }

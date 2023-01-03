@@ -56,6 +56,11 @@
 
             int landmarkId = await this.landmarkService.Create(model, userId);
 
+            if (landmarkId == 0)
+            {
+                return BadRequest("Town not found!");
+            }
+
             return Created(nameof(this.Create), landmarkId);
         }
 

@@ -85,5 +85,17 @@
             await this.dbContext.SaveChangesAsync();
             return true;
         }
+
+        public async Task<Result> CheckIfIdExists(int id)
+        {
+            var town = await this.dbContext
+                .Towns
+                .Where(t => t.Id == id)
+                .CountAsync();
+
+            if (town == 0) return false;
+
+            return true;
+        }
     }
 }

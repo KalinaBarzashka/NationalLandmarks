@@ -52,10 +52,10 @@
         public async Task<ActionResult<LoginResponseModel>> Login(LoginRequestModel model)
         {
             var user = await this.userManager.FindByNameAsync(model.UserName);
-            if (user == null) return StatusCode(StatusCodes.Status403Forbidden);
+            if (user == null) return StatusCode(StatusCodes.Status403Forbidden); // Status401Unauthorized
 
             var passwordValid = await this.userManager.CheckPasswordAsync(user, model.Password);
-            if (!passwordValid) return StatusCode(StatusCodes.Status403Forbidden);
+            if (!passwordValid) return StatusCode(StatusCodes.Status403Forbidden); // Status401Unauthorized
 
             var token = this.identityService.GenerateJwtToken(
                 user.Id,

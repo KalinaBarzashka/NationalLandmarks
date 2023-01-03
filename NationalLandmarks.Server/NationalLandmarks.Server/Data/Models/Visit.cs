@@ -17,6 +17,9 @@
 
         public DateTime VisitedOn { get; set; } = DateTime.UtcNow;
 
+        [Required]
         public Grade? Grade { get; set; }
+
+        public string? Comment { get; set; }
     }
 }

@@ -5,6 +5,7 @@
 
     public class UpdateLandmarkRequestModel
     {
+        public string? RegistrationNumber { get; set; }
 
         [Required]
         public bool IsNationalLandmark { get; set; }
@@ -13,9 +14,11 @@
         [MaxLength(MaxDescriptionLength)]
         public string Description { get; set; }
 
-        public string? Opens { get; set; }
+        public string? WorkingTime { get; set; }
 
-        public string? Closes { get; set; }
+        //public string? Opens { get; set; }
+
+        //public string? Closes { get; set; }
 
         public bool? WorksOnWeekends { get; set; }
 

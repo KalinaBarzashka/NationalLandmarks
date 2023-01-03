@@ -33,7 +33,7 @@
         {
             var userId = this.currentUserService.GetId();
 
-            var visitId = await this.visitService.AddVisitedLandmarkForUser(model.LandmarkId, model.Grade, userId);
+            var visitId = await this.visitService.AddVisitedLandmarkForUser(model.LandmarkId, model.Grade, model.Comment, userId);
 
             if(visitId == 0)
             {

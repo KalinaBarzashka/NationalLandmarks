@@ -1,5 +1,5 @@
 using NationalLandmarks.Server.Infrastructure.Extensions;
-using NationalLandmarks.Server.Infrastructure.Filters;
+//using NationalLandmarks.Server.Infrastructure.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 

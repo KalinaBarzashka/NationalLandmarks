@@ -34,6 +34,6 @@
 
         public virtual IEnumerable<Landmark> Landmarks { get; } = new HashSet<Landmark>();
 
-        public virtual IEnumerable<Visit> Visits { get; set; }
+        public virtual IEnumerable<Visit> Visits { get; set; } = new HashSet<Visit>();
     }
 }

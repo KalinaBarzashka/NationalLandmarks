@@ -29,8 +29,9 @@
         public static IServiceCollection AddDatabase(
             this IServiceCollection services, IConfiguration configuration)
         {
+            // register as a scoped service in the application service provider (a.k.a. the dependency injection container)
             return services
-                .AddDbContext<NationalLandmarksDbContext>(options =>
+                .AddDbContext<NationalLandmarksDbContext>(options => 
                     options.UseSqlServer(configuration.GetDefaultConnectionString()));
         }
 
