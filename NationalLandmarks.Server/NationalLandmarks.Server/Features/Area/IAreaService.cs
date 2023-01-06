@@ -7,6 +7,8 @@
     {
         Task<IEnumerable<GetAllAreasServiceModel>> GetAll();
 
+        Task<bool> DoesAreaExists(int id);
+
         Task<int> Create(CreateAreaRequestModel model, string? userId);
 
         Task<Result> Update(int id, string name, string? userId);

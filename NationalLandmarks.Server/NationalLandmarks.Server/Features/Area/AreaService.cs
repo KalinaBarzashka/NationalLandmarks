@@ -24,6 +24,16 @@
             }).ToListAsync();
         }
 
+        public async Task<bool> DoesAreaExists(int id)
+        {
+            var area = await this.dbContext
+                .Areas
+                .Where(a => a.Id == id)
+                .FirstOrDefaultAsync();
+
+            return area != null;
+        }
+
         public async Task<int> Create(CreateAreaRequestModel model, string? userId)
         {
             var area = new Area
@@ -46,7 +56,7 @@
 
             if (area == null)
             {
-                return "This user cannot edit this area!";
+                return "Area does not exists!";
             }
 
             if(area.Name != name && !string.IsNullOrWhiteSpace(name))
@@ -67,7 +77,7 @@
 
             if (area == null)
             {
-                return "This user cannot delete this area!";
+                return "Area does not exists!";
             }
 
             this.dbContext.Areas.Remove(area);

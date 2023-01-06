@@ -14,6 +14,7 @@
     using NationalLandmarks.Server.Features.Visit;
     using NationalLandmarks.Server.Infrastructure.Filters;
     using NationalLandmarks.Server.Infrastructure.Services;
+    using System.Reflection;
     using System.Text;
 
     public static class ServiceCollectionsExtensions
@@ -88,7 +89,19 @@
         {
             return services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Landmark API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { 
+                    Version = "v1", 
+                    Title = "Landmark API", 
+                    Description = "An ASP.NET Core Web API for managing ToDo items",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Example Contact",
+                        Url = new Uri("https://example.com/contact")
+                    }
+                });
+                // Configure Swagger to use the XML file that's generated
+                var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"; // Build an XML file name matching that of the web API project
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename)); // AppContext.BaseDirectory property is used to construct a path to the XML file
             });
         }
 
