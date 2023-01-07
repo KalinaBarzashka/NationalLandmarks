@@ -15,5 +15,6 @@
 
         public Task<LandmarkDetailsServiceModel> GetDetailsById(int id);
 
+        Task<bool> DoesLandmarkExists(int id);
     }
 }

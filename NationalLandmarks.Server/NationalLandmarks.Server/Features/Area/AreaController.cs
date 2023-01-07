@@ -6,10 +6,11 @@ namespace NationalLandmarks.Server.Features.Area
     using Microsoft.AspNetCore.Mvc;
     using NationalLandmarks.Server.Features.Area.Models;
     using NationalLandmarks.Server.Infrastructure.Services;
+
     using static Infrastructure.WebConstants;
 
     /// <summary>
-    /// CRUD operations for Area object
+    /// CRUD operations for Area objects
     /// </summary>
     [Produces("application/json")]
     public class AreaController : ApiController
@@ -29,7 +30,8 @@ namespace NationalLandmarks.Server.Features.Area
         /// <returns>IEnumerable object models with id and name params.</returns>
         /// <response code="200">Returns all areas as objects.</response>
         [HttpGet]
-        public async Task<IEnumerable<GetAllAreasServiceModel>> GetAllAreas()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IEnumerable<GetAllAreasServiceModel>> GetAll()
         {
             return await this.areaService.GetAll();
         }
@@ -74,7 +76,7 @@ namespace NationalLandmarks.Server.Features.Area
         [Authorize]
         [Route(RouteId)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Update(int id, string name)
         {

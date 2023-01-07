@@ -7,12 +7,14 @@
     {
         Task<IEnumerable<GetAllTownsServiceModel>> GetAll();
 
+        Task<IEnumerable<GetAllTownsServiceModel>> GetTownsInSpecificArea(int id);
+
+        Task<bool> DoesTownExists(int id);
+
         Task<int> Create(CreateTownRequestModel model, string? userId);
 
         Task<Result> Update(int id, UpdateTownRequestModel model, string? userId);
 
         Task<Result> Delete(int id, string? userId);
-
-        Task<Result> CheckIfIdExists(int id);
     }
 }

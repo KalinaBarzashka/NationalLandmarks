@@ -22,14 +22,6 @@
 
         public async Task<int> Create(CreateLandmarkRequestModel model, string userId)
         {
-            // check if town exists (without it if non existing id is passed it result in server error 500)
-
-            var townExists = await this.townService.CheckIfIdExists(model.TownId);
-            if (townExists.Failure)
-            {
-                return 0;
-            }
-
             // create landmark
             var landmark = new Landmark
             {
@@ -179,6 +171,16 @@
         private int GetAllLandmarksCount()
         {
             return this.dbContext.Landmarks.Select(x => x.Id).Count();
+        }
+
+        public async Task<bool> DoesLandmarkExists(int id)
+        {
+            var landmark = await this.dbContext
+                .Landmarks
+                .Where(a => a.Id == id)
+                .CountAsync();
+
+            return landmark != 0;
         }
     }
 }
