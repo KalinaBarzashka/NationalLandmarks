@@ -18,6 +18,12 @@
 
         public string? ProfileImageUrl { get; set; }
 
+        public string? VerificationToken { get; set; }
+
+        public DateTime? Verified { get; set; }
+
+        public bool IsVerified => Verified.HasValue;
+
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
@@ -32,8 +38,11 @@
 
         public string? ModifiedByUsername { get; set; }
 
+        public virtual ICollection<ApplicationUserRole> UserRoles { get; set; } = new List<ApplicationUserRole>();
+
         public virtual IEnumerable<Landmark> Landmarks { get; } = new HashSet<Landmark>();
 
         public virtual IEnumerable<Visit> Visits { get; set; } = new HashSet<Visit>();
+
     }
 }

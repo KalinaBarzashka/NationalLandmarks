@@ -1,5 +1,6 @@
 ﻿namespace NationalLandmarks.Server.Data
 {
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using NationalLandmarks.Server.Data.Models;
@@ -8,7 +9,8 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    public class NationalLandmarksDbContext : IdentityDbContext<User>
+    public class NationalLandmarksDbContext : IdentityDbContext<User, Role, string, IdentityUserClaim<string>, ApplicationUserRole, IdentityUserLogin<string>,
+        IdentityRoleClaim<string>, IdentityUserToken<string>>
     {
         private readonly ICurrentUserService currentUserService;
 
@@ -40,6 +42,8 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
+
             var entityTypes = builder.Model.GetEntityTypes().ToList();
 
             // Disable cascade delete
@@ -57,8 +61,29 @@
                 .WithMany(u => u.Landmarks)
                 .HasForeignKey(u => u.UserId);
 
-            builder.Entity<User>()
-                .HasQueryFilter(u => !u.IsDeleted);
+            builder.Entity<User>().HasQueryFilter(u => !u.IsDeleted);
+
+            builder.Entity<User>(b =>
+            {
+                // Each User can have many entries in the UserRole join table
+                b.HasMany(e => e.UserRoles)
+                    .WithOne(e => e.User)
+                    .HasForeignKey(ur => ur.UserId)
+                    .IsRequired();
+
+                b.ToTable("Users");
+            });
+
+            builder.Entity<Role>(b =>
+            {
+                // Each Role can have many entries in the UserRole join table
+                b.HasMany(e => e.UserRoles)
+                    .WithOne(e => e.Role)
+                    .HasForeignKey(ur => ur.RoleId)
+                    .IsRequired();
+
+                b.ToTable("Roles");
+            });
 
             builder.Entity<Area>()
                 .HasQueryFilter(a => !a.IsDeleted);
@@ -76,9 +101,6 @@
                 .HasOne(u => u.Landmark)
                 .WithMany(v => v.Visits)
                 .HasForeignKey(u => u.LandmarkId);
-
-
-            base.OnModelCreating(builder);
         }
 
         private void ApplyAuditInfo()

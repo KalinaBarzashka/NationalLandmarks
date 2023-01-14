@@ -71,17 +71,16 @@ namespace NationalLandmarks.Server.Features.Landmark
             return landmark;//landmark.OrNotFound();
         }
 
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status201Created)]
         /// <summary>
         /// Create new Landmark object.
         /// </summary>
         /// <param name="model"></param>
-        /// <returns>Action result and the id of the newly created Landmark.</returns>
+        /// <returns>Action result and the newly created Landmark.</returns>
         /// <response code="201">Returns the newly created item.</response>
         /// <response code="400">Returns bad request if town does not exists in the database.</response>
         [HttpPost]
         [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Create(CreateLandmarkRequestModel model)
@@ -98,13 +97,15 @@ namespace NationalLandmarks.Server.Features.Landmark
             }
 
             int landmarkId = await this.landmarkService.Create(model, userId);
+            var landmark = await this.landmarkService.GetDetailsById(landmarkId);
 
             //if (landmarkId == 0)
             //{
             //    return BadRequest("Create faild!");
             //}
 
-            return Created(nameof(this.Create), landmarkId);
+            return CreatedAtAction(nameof(Details), new { id = landmarkId }, landmark);
+            //return Created(nameof(this.Create), landmarkId);
         }
 
         /// <summary>

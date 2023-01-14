@@ -10,6 +10,7 @@
     using NationalLandmarks.Server.Features.Area;
     using NationalLandmarks.Server.Features.Identity;
     using NationalLandmarks.Server.Features.Landmark;
+    using NationalLandmarks.Server.Features.Notification;
     using NationalLandmarks.Server.Features.Town;
     using NationalLandmarks.Server.Features.Visit;
     using NationalLandmarks.Server.Infrastructure.Filters;
@@ -38,7 +39,7 @@
 
         public static IServiceCollection AddIdentity(this IServiceCollection services)
         {
-            services.AddIdentity<User, IdentityRole>(options =>
+            services.AddIdentity<User, Role>(options =>
             {
                 options.Password.RequiredLength = 6;
                 options.Password.RequireDigit = false;
@@ -82,7 +83,8 @@
                            .AddTransient<ILandmarkService, LandmarkService>()
                            .AddTransient<ITownService, TownService>()
                            .AddTransient<IVisitService, VisitService>()
-                           .AddTransient<IAreaService, AreaService>();
+                           .AddTransient<IAreaService, AreaService>()
+                           .AddTransient<IEmailService, EmailService>();
         }
 
         public static IServiceCollection AddSwagger(this IServiceCollection services)
