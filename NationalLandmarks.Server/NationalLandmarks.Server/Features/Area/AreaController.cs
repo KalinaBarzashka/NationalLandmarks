@@ -30,6 +30,7 @@ namespace NationalLandmarks.Server.Features.Area
         /// <returns>IEnumerable object models with id and name params.</returns>
         /// <response code="200">Returns all areas as objects.</response>
         [HttpGet]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IEnumerable<GetAllAreasServiceModel>> GetAll()
         {
@@ -51,9 +52,11 @@ namespace NationalLandmarks.Server.Features.Area
         ///
         /// </remarks>
         /// <response code="201">Returns the newly created item.</response>
+        /// <response code="403">No permissions.</response>
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult> Create(CreateAreaRequestModel model)
         {
             var userId = this.currentUserService.GetId();
@@ -71,12 +74,14 @@ namespace NationalLandmarks.Server.Features.Area
         /// <returns>Action result.</returns>
         /// <response code="200">Returns ok if the update was successfull.</response>
         /// <response code="400">Returns bad request if update fails.</response>
+        /// <response code="403">No permissions.</response>
         /// <response code="404">Returns not found if area with the specified id does not exists.</response>
         [HttpPut]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route(RouteId)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Update(int id, string name)
         {
@@ -106,12 +111,14 @@ namespace NationalLandmarks.Server.Features.Area
         /// <returns>Action result.</returns>
         /// <response code="200">Returns ok if the delete was successfull.</response>
         /// <response code="400">Returns bad request if delete fails.</response>
+        /// <response code="403">No permissions.</response>
         /// <response code="404">Returns not found if area with the specified id does not exists.</response>
-        [Authorize]
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         [Route(RouteId)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Delete(int id)
         {

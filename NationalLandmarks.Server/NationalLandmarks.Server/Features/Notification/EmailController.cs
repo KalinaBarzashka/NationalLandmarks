@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace NationalLandmarks.Server.Features.Notification
+﻿namespace NationalLandmarks.Server.Features.Notification
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+
     public class EmailController : ApiController
     {
         private readonly IEmailService emailService;
@@ -12,6 +13,7 @@ namespace NationalLandmarks.Server.Features.Notification
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult SendEmail(string to, string subject, string html)
         {
             this.emailService.Send(to, subject, html);

@@ -1,11 +1,11 @@
-﻿using NationalLandmarks.Server.Features.Identity.Models;
-using NationalLandmarks.Server.Infrastructure.Services;
-
-namespace NationalLandmarks.Server.Features.Identity
+﻿namespace NationalLandmarks.Server.Features.Identity
 {
+    using NationalLandmarks.Server.Features.Identity.Models;
+    using NationalLandmarks.Server.Infrastructure.Services;
+
     public interface IIdentityService
     {
-        string GenerateJwtToken(string userId, string username, string secret);
+        string GenerateJwtToken(string userId, string username, IList<string> roles, string secret);
 
         int? ValidateJwtToken(string token, string secret);
 

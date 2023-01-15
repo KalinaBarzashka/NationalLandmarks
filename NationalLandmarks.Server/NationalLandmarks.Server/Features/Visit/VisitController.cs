@@ -29,8 +29,8 @@ namespace NationalLandmarks.Server.Features.Visit
         /// </summary>
         /// <returns>IEnumerable object models with details of the visited landmarks.</returns>
         /// <response code="200">Returns all visits as objects.</response>
-        [Authorize]
         [HttpGet]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IEnumerable<GetAllVisitsByUserServiceModel>> GetAll()
         {
@@ -46,8 +46,8 @@ namespace NationalLandmarks.Server.Features.Visit
         /// <returns>Action result and the id of the newly created Visit.</returns>
         /// <response code="201">Returns the newly created item.</response>
         /// <response code="409">Returns conflict if user has already visited the landmark.</response>
-        [Authorize]
         [HttpPost]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status409Conflict)]
         public async Task<ActionResult> Create(CreateVisitRequestModel model)

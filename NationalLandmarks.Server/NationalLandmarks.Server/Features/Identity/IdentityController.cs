@@ -22,18 +22,21 @@
         private readonly AppSettings appSettings;
         private readonly ICurrentUserService currentUserService;
         private readonly IEmailService emailService;
+        private readonly RoleManager<Role> roleManager;
 
         public IdentityController(UserManager<User> userManager,
             IIdentityService identityService,
             IOptions<AppSettings> appSettings,
             ICurrentUserService currentUserService,
-            IEmailService emailService)
+            IEmailService emailService,
+            RoleManager<Role> roleManager)
         {
             this.userManager = userManager;
             this.identityService = identityService;
             this.appSettings = appSettings.Value;
             this.currentUserService = currentUserService;
             this.emailService = emailService;
+            this.roleManager = roleManager;
         }
 
         /// <summary>
@@ -118,6 +121,7 @@
         public async Task<ActionResult<LoginResponseModel>> Login(LoginRequestModel model)
         {
             var user = await this.userManager.FindByNameAsync(model.UserName);
+
             if (user == null || !user.IsVerified) return StatusCode(StatusCodes.Status403Forbidden); // Status401Unauthorized
 
             var hashedPassword = this.identityService.HashPassword(model.Password, appSettings.Salt);
@@ -125,9 +129,12 @@
             var passwordValid = await this.userManager.CheckPasswordAsync(user, hashedPassword);
             if (!passwordValid) return StatusCode(StatusCodes.Status403Forbidden); // Status401Unauthorized
 
+            var userRoles = await this.userManager.GetRolesAsync(user);
+
             var token = this.identityService.GenerateJwtToken(
                 user.Id,
                 user.UserName,
+                userRoles,
                 this.appSettings.Secret);
 
             return new LoginResponseModel
@@ -182,8 +189,8 @@
         /// <returns>IEnumerable object models with id, name, description and is deleted params.</returns>
         /// <response code="200">Returns all roles as objects.</response>
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         [Route(nameof(Roles))]
-        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IEnumerable<GetAllRolesServiceModel>> Roles()
         {
@@ -196,8 +203,8 @@
         /// <param name="model"></param>
         /// <returns>Action result and the id of the newly created Role.</returns>
         /// <response code="201">Returns the newly created item.</response>
-        [Authorize]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route(nameof(Roles))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult> Create(CreateRoleRequestModel model)
@@ -217,7 +224,7 @@
         /// <response code="400">Returns bad request if update fails.</response>
         /// <response code="404">Returns not found if role with the specified id does not exists.</response>
         [HttpPut]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route(nameof(Roles) + RouteId)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -250,8 +257,8 @@
         /// <response code="200">Returns ok if the delete was successfull.</response>
         /// <response code="400">Returns bad request if delete fails.</response>
         /// <response code="404">Returns not found if role with the specified id does not exists.</response>
-        [Authorize]
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         [Route(nameof(Roles) + RouteId)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

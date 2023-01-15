@@ -30,6 +30,7 @@ namespace NationalLandmarks.Server.Features.Place
         /// <returns>IEnumerable object models with id, name and area name params.</returns>
         /// <response code="200">Returns all places as objects.</response>
         [HttpGet]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IEnumerable<GetAllPlacesServiceModel>> GetAll()
         {
@@ -43,6 +44,7 @@ namespace NationalLandmarks.Server.Features.Place
         /// <returns>IEnumerable object models with id, name and area name params.</returns>
         /// <response code="200">Returns all places as objects.</response>
         [HttpGet]
+        [Authorize]
         [Route(RouteId)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IEnumerable<GetAllPlacesServiceModel>> GetPlacesInSpecificArea(int id)
@@ -66,8 +68,8 @@ namespace NationalLandmarks.Server.Features.Place
         ///
         /// </remarks>
         /// <response code="201">Returns the newly created item.</response>
-        [Authorize]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult> Create(CreatePlaceRequestModel model)
         {
@@ -88,7 +90,7 @@ namespace NationalLandmarks.Server.Features.Place
         /// <response code="400">Returns bad request if update fails.</response>
         /// <response code="404">Returns not found if place with the specified id does not exists.</response>
         [HttpPut]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route(RouteId)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -122,8 +124,8 @@ namespace NationalLandmarks.Server.Features.Place
         /// <response code="200">Returns ok if the delete was successfull.</response>
         /// <response code="400">Returns bad request if delete fails.</response>
         /// <response code="404">Returns not found if place with the specified id does not exists.</response>
-        [Authorize]
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         [Route(RouteId)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

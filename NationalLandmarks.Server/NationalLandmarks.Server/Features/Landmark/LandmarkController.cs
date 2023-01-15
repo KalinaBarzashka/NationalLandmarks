@@ -39,6 +39,7 @@ namespace NationalLandmarks.Server.Features.Landmark
         /// <returns>Object model with landmark array and pagination information.</returns>
         /// <response code="200">Returns all landmarks as objects.</response>
         [HttpGet]
+        [Authorize]
         [Route(RouteId)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<GetAllLandmarksPaginationServiceModel> GetAll(int id = 1)
@@ -56,6 +57,7 @@ namespace NationalLandmarks.Server.Features.Landmark
         /// <response code="200">Returns landmark details as object.</response>
         /// <response code="404">Returns not found if no landmark exists in the database.</response>
         [HttpGet]
+        [Authorize]
         [Route("details/" + RouteId)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -79,7 +81,7 @@ namespace NationalLandmarks.Server.Features.Landmark
         /// <response code="201">Returns the newly created item.</response>
         /// <response code="400">Returns bad request if place does not exists in the database.</response>
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
@@ -117,8 +119,8 @@ namespace NationalLandmarks.Server.Features.Landmark
         /// <response code="200">Returns ok if the update was successfull.</response>
         /// <response code="400">Returns bad request if update fails.</response>
         /// <response code="404">Returns not found if landmark with the specified id does not exists.</response>
-        [Authorize]
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         [Route(RouteId)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
@@ -152,8 +154,8 @@ namespace NationalLandmarks.Server.Features.Landmark
         /// <response code="200">Returns ok if the delete was successfull.</response>
         /// <response code="400">Returns bad request if delete fails.</response>
         /// <response code="404">Returns not found if landmark with the specified id does not exists.</response>
-        [Authorize]
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         [Route(RouteId)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
