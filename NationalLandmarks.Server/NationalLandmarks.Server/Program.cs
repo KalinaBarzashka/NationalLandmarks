@@ -28,6 +28,7 @@ app.UseStaticFiles();*/
 
 app
     .UseSwaggerUI()
+    .UseStaticFiles()
     .UseRouting()
     .UseCors(options => options
         .AllowAnyOrigin()

@@ -11,7 +11,7 @@
     using NationalLandmarks.Server.Features.Identity;
     using NationalLandmarks.Server.Features.Landmark;
     using NationalLandmarks.Server.Features.Notification;
-    using NationalLandmarks.Server.Features.Town;
+    using NationalLandmarks.Server.Features.Place;
     using NationalLandmarks.Server.Features.Visit;
     using NationalLandmarks.Server.Infrastructure.Filters;
     using NationalLandmarks.Server.Infrastructure.Services;
@@ -81,7 +81,7 @@
             return services.AddTransient<IIdentityService, IdentityService>()
                            .AddScoped<ICurrentUserService, CurrentUserService>()
                            .AddTransient<ILandmarkService, LandmarkService>()
-                           .AddTransient<ITownService, TownService>()
+                           .AddTransient<IPlaceService, PlaceService>()
                            .AddTransient<IVisitService, VisitService>()
                            .AddTransient<IAreaService, AreaService>()
                            .AddTransient<IEmailService, EmailService>();

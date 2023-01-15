@@ -58,8 +58,8 @@
                     {
                         Name = v.Landmark.Name,
                         IsNationalLandmark = v.Landmark.IsNationalLandmark,
-                        TownName = v.Landmark.Town.Name,
-                        ImageUrl = v.Landmark.ImageUrl
+                        PlaceName = v.Landmark.Place.Name,
+                        ImagePath = v.Landmark.ImagePath
                     }
                 })
                 .OrderByDescending(v => v.VisitedOn)

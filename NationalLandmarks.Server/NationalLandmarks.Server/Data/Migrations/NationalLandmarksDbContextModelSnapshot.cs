@@ -3,53 +3,24 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NationalLandmarks.Server.Data;
 
 #nullable disable
 
-namespace NationalLandmarks.Server.Data.Migrations
+namespace NationalLandmarks.Server.Migrations
 {
     [DbContext(typeof(NationalLandmarksDbContext))]
-    [Migration("20220425183751_CreatedAreaTownVisitGradeEntities")]
-    partial class CreatedAreaTownVisitGradeEntities
+    partial class NationalLandmarksDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.2")
+                .HasAnnotation("ProductVersion", "6.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles", (string)null);
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
@@ -123,21 +94,6 @@ namespace NationalLandmarks.Server.Data.Migrations
                     b.ToTable("AspNetUserLogins", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetUserRoles", (string)null);
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
@@ -155,6 +111,21 @@ namespace NationalLandmarks.Server.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("NationalLandmarks.Server.Data.ApplicationUserRole", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
                 });
 
             modelBuilder.Entity("NationalLandmarks.Server.Data.Models.Area", b =>
@@ -209,9 +180,6 @@ namespace NationalLandmarks.Server.Data.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("Closes")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CreatedByUsername")
                         .HasColumnType("nvarchar(max)");
 
@@ -232,7 +200,7 @@ namespace NationalLandmarks.Server.Data.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("ImagePath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -242,13 +210,11 @@ namespace NationalLandmarks.Server.Data.Migrations
                     b.Property<bool>("IsNationalLandmark")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Latitude")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
 
-                    b.Property<string>("Longitude")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
 
                     b.Property<string>("ModifiedByUsername")
                         .HasColumnType("nvarchar(max)");
@@ -261,14 +227,14 @@ namespace NationalLandmarks.Server.Data.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("Opens")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TownId")
+                    b.Property<int>("PlaceId")
                         .HasColumnType("int");
+
+                    b.Property<string>("RegistrationNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -277,19 +243,22 @@ namespace NationalLandmarks.Server.Data.Migrations
                     b.Property<string>("Website")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("WorkingTime")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool?>("WorksOnWeekends")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TownId");
+                    b.HasIndex("PlaceId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Landmarks");
                 });
 
-            modelBuilder.Entity("NationalLandmarks.Server.Data.Models.Town", b =>
+            modelBuilder.Entity("NationalLandmarks.Server.Data.Models.Place", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -330,7 +299,46 @@ namespace NationalLandmarks.Server.Data.Migrations
 
                     b.HasIndex("AreaId");
 
-                    b.ToTable("Towns");
+                    b.ToTable("Places");
+                });
+
+            modelBuilder.Entity("NationalLandmarks.Server.Data.Models.Role", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("NationalLandmarks.Server.Data.Models.User", b =>
@@ -419,6 +427,12 @@ namespace NationalLandmarks.Server.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<string>("VerificationToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Verified")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -429,7 +443,7 @@ namespace NationalLandmarks.Server.Data.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("NationalLandmarks.Server.Data.Models.Visit", b =>
@@ -440,7 +454,10 @@ namespace NationalLandmarks.Server.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("Grade")
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Grade")
                         .HasColumnType("int");
 
                     b.Property<int>("LandmarkId")
@@ -464,10 +481,10 @@ namespace NationalLandmarks.Server.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("NationalLandmarks.Server.Data.Models.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -476,7 +493,7 @@ namespace NationalLandmarks.Server.Data.Migrations
                     b.HasOne("NationalLandmarks.Server.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -485,22 +502,7 @@ namespace NationalLandmarks.Server.Data.Migrations
                     b.HasOne("NationalLandmarks.Server.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NationalLandmarks.Server.Data.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -509,15 +511,34 @@ namespace NationalLandmarks.Server.Data.Migrations
                     b.HasOne("NationalLandmarks.Server.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("NationalLandmarks.Server.Data.ApplicationUserRole", b =>
+                {
+                    b.HasOne("NationalLandmarks.Server.Data.Models.Role", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("NationalLandmarks.Server.Data.Models.User", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("NationalLandmarks.Server.Data.Models.Landmark", b =>
                 {
-                    b.HasOne("NationalLandmarks.Server.Data.Models.Town", "Town")
+                    b.HasOne("NationalLandmarks.Server.Data.Models.Place", "Place")
                         .WithMany()
-                        .HasForeignKey("TownId")
+                        .HasForeignKey("PlaceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -527,15 +548,15 @@ namespace NationalLandmarks.Server.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Town");
+                    b.Navigation("Place");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("NationalLandmarks.Server.Data.Models.Town", b =>
+            modelBuilder.Entity("NationalLandmarks.Server.Data.Models.Place", b =>
                 {
                     b.HasOne("NationalLandmarks.Server.Data.Models.Area", "Area")
-                        .WithMany("Towns")
+                        .WithMany("Places")
                         .HasForeignKey("AreaId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -564,7 +585,7 @@ namespace NationalLandmarks.Server.Data.Migrations
 
             modelBuilder.Entity("NationalLandmarks.Server.Data.Models.Area", b =>
                 {
-                    b.Navigation("Towns");
+                    b.Navigation("Places");
                 });
 
             modelBuilder.Entity("NationalLandmarks.Server.Data.Models.Landmark", b =>
@@ -572,9 +593,16 @@ namespace NationalLandmarks.Server.Data.Migrations
                     b.Navigation("Visits");
                 });
 
+            modelBuilder.Entity("NationalLandmarks.Server.Data.Models.Role", b =>
+                {
+                    b.Navigation("UserRoles");
+                });
+
             modelBuilder.Entity("NationalLandmarks.Server.Data.Models.User", b =>
                 {
                     b.Navigation("Landmarks");
+
+                    b.Navigation("UserRoles");
 
                     b.Navigation("Visits");
                 });

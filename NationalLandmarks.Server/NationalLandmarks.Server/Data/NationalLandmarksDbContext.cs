@@ -22,7 +22,7 @@
 
         public DbSet<Area> Areas { get; set; }
 
-        public DbSet<Town> Towns { get; set; }
+        public DbSet<Place> Places { get; set; }
 
         public DbSet<Landmark> Landmarks { get; set; }
 
@@ -88,7 +88,7 @@
             builder.Entity<Area>()
                 .HasQueryFilter(a => !a.IsDeleted);
 
-            builder.Entity<Town>()
+            builder.Entity<Place>()
                 .HasQueryFilter(t => !t.IsDeleted);
 
             //builder.Entity<Visit>().HasKey(v => new { v.UserId, v.LandmarkId });
@@ -101,6 +101,8 @@
                 .HasOne(u => u.Landmark)
                 .WithMany(v => v.Visits)
                 .HasForeignKey(u => u.LandmarkId);
+
+            //Seeder.Seed(builder); //not working outside of OnModelCreating!
         }
 
         private void ApplyAuditInfo()

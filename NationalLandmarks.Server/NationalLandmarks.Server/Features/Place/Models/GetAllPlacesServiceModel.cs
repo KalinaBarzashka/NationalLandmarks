@@ -1,6 +1,6 @@
-﻿namespace NationalLandmarks.Server.Features.Town.Models
+﻿namespace NationalLandmarks.Server.Features.Place.Models
 {
-    public class GetAllTownsServiceModel
+    public class GetAllPlacesServiceModel
     {
         public int Id { get; set; }
 

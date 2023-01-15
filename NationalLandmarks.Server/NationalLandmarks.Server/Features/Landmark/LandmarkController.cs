@@ -5,7 +5,7 @@ namespace NationalLandmarks.Server.Features.Landmark
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using NationalLandmarks.Server.Features.Landmark.Models;
-    using NationalLandmarks.Server.Features.Town;
+    using NationalLandmarks.Server.Features.Place;
     using NationalLandmarks.Server.Infrastructure.Services;
 
     using static Infrastructure.WebConstants;
@@ -19,16 +19,16 @@ namespace NationalLandmarks.Server.Features.Landmark
         private const int itemsPerPage = 9;
         private readonly ILandmarkService landmarkService;
         private readonly ICurrentUserService currentUserService;
-        private readonly ITownService townService;
+        private readonly IPlaceService placeService;
 
         public LandmarkController(
             ILandmarkService landmarkService,
             ICurrentUserService currentUserService,
-            ITownService townService)
+            IPlaceService placeService)
         {
             this.landmarkService = landmarkService;
             this.currentUserService = currentUserService;
-            this.townService = townService;
+            this.placeService = placeService;
         }
 
         //[Authorize]
@@ -77,7 +77,7 @@ namespace NationalLandmarks.Server.Features.Landmark
         /// <param name="model"></param>
         /// <returns>Action result and the newly created Landmark.</returns>
         /// <response code="201">Returns the newly created item.</response>
-        /// <response code="400">Returns bad request if town does not exists in the database.</response>
+        /// <response code="400">Returns bad request if place does not exists in the database.</response>
         [HttpPost]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -88,12 +88,12 @@ namespace NationalLandmarks.Server.Features.Landmark
             //string username = this.User.Identity.Name;
             var userId = this.currentUserService.GetId();//this.User.GetId();
 
-            // check if town exists (without it if non existing id is passed it result in server error 500)
-            var townExists = await this.townService.DoesTownExists(model.TownId);
+            // check if place exists (without it if non existing id is passed it result in server error 500)
+            var placeExists = await this.placeService.DoesPlaceExists(model.PlaceId);
 
-            if (!townExists)
+            if (!placeExists)
             {
-                return BadRequest("Town not found!");
+                return BadRequest("place not found!");
             }
 
             int landmarkId = await this.landmarkService.Create(model, userId);

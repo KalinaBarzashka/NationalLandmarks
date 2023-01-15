@@ -1,25 +1,25 @@
-﻿namespace NationalLandmarks.Server.Features.Town
+﻿namespace NationalLandmarks.Server.Features.Place
 {
     using Microsoft.EntityFrameworkCore;
     using NationalLandmarks.Server.Data;
     using NationalLandmarks.Server.Data.Models;
-    using NationalLandmarks.Server.Features.Town.Models;
+    using NationalLandmarks.Server.Features.Place.Models;
     using NationalLandmarks.Server.Infrastructure.Services;
 
-    public class TownService : ITownService
+    public class PlaceService : IPlaceService
     {
         private readonly NationalLandmarksDbContext dbContext;
 
-        public TownService(NationalLandmarksDbContext dbContext)
+        public PlaceService(NationalLandmarksDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<GetAllTownsServiceModel>> GetAll()
+        public async Task<IEnumerable<GetAllPlacesServiceModel>> GetAll()
         {
             return await this.dbContext
-                .Towns
-                .Select(t => new GetAllTownsServiceModel
+                .Places
+                .Select(t => new GetAllPlacesServiceModel
                 {
                     Id = t.Id,
                     Name = t.Name,
@@ -28,12 +28,12 @@
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<GetAllTownsServiceModel>> GetTownsInSpecificArea(int id)
+        public async Task<IEnumerable<GetAllPlacesServiceModel>> GetPlacesInSpecificArea(int id)
         {
             return await this.dbContext
-                .Towns
+                .Places
                 .Where(t => t.AreaId == id)
-                .Select(t => new GetAllTownsServiceModel
+                .Select(t => new GetAllPlacesServiceModel
                 {
                     Id = t.Id,
                     Name = t.Name,
@@ -42,40 +42,40 @@
                 .ToListAsync();
         }
 
-        public async Task<int> Create(CreateTownRequestModel model, string? userId)
+        public async Task<int> Create(CreatePlaceRequestModel model, string? userId)
         {
-            var town = new Town
+            var place = new Place
             {
                 Name = model.Name,
                 AreaId = model.AreaId
             };
 
-            this.dbContext.Towns.Add(town);
+            this.dbContext.Places.Add(place);
 
             await this.dbContext.SaveChangesAsync();
-            return town.Id;
+            return place.Id;
         }
 
-        public async Task<Result> Update(int id, UpdateTownRequestModel model, string? userId)
+        public async Task<Result> Update(int id, UpdatePlaceRequestModel model, string? userId)
         {
-            var town = await this.dbContext
-                .Towns
+            var place = await this.dbContext
+                .Places
                 .Where(t => t.Id == id)
                 .FirstOrDefaultAsync();
 
-            if(town == null)
+            if(place == null)
             {
-                return "Town does not exists!";
+                return "Place does not exists!";
             }
 
-            if(town.Name != model.Name && !string.IsNullOrWhiteSpace(model.Name))
+            if(place.Name != model.Name && !string.IsNullOrWhiteSpace(model.Name))
             {
-                town.Name = model.Name;
+                place.Name = model.Name;
             }
 
-            if (town.AreaId != model.AreaId && model.AreaId != 0)
+            if (place.AreaId != model.AreaId && model.AreaId != 0)
             {
-                town.AreaId = model.AreaId;
+                place.AreaId = model.AreaId;
             }
 
             await this.dbContext.SaveChangesAsync();
@@ -84,30 +84,30 @@
 
         public async Task<Result> Delete(int id, string? userId)
         {
-            var town = await this.dbContext
-                .Towns
+            var place = await this.dbContext
+                .Places
                 .Where(t => t.Id == id)
                 .FirstOrDefaultAsync();
 
-            if (town == null)
+            if (place == null)
             {
-                return "Town does not exists!";
+                return "Place does not exists!";
             }
 
-            this.dbContext.Towns.Remove(town);
+            this.dbContext.Places.Remove(place);
 
             await this.dbContext.SaveChangesAsync();
             return true;
         }
 
-        public async Task<bool> DoesTownExists(int id)
+        public async Task<bool> DoesPlaceExists(int id)
         {
-            var town = await this.dbContext
-                .Towns
+            var place = await this.dbContext
+                .Places
                 .Where(a => a.Id == id)
                 .CountAsync();
 
-            return town != 0;
+            return place != 0;
         }
     }
 }

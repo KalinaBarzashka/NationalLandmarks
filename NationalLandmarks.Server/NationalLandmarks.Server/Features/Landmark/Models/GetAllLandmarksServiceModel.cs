@@ -10,11 +10,11 @@
 
         public bool IsNationalLandmark { get; set; }
 
-        public int TownId { get; set; }
+        public int PlaceId { get; set; }
 
-        public string TownName { get; set; }
+        public string PlaceName { get; set; }
 
-        public string ImageUrl { get; set; }
+        public string ImagePath { get; set; }
 
         public string Description { get; set; }
 

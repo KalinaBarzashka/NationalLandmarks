@@ -27,6 +27,6 @@
 
         public string? ModifiedByUsername { get; set; }
 
-        public virtual IEnumerable<Town> Towns { get; set; } = new HashSet<Town>();
+        public virtual IEnumerable<Place> Places { get; set; } = new HashSet<Place>();
     }
 }

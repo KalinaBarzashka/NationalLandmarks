@@ -1,10 +1,10 @@
-﻿namespace NationalLandmarks.Server.Features.Town.Models
+﻿namespace NationalLandmarks.Server.Features.Place.Models
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static NationalLandmarks.Server.Data.Validation.Town;
+    using static NationalLandmarks.Server.Data.Validation.Place;
 
-    public class CreateTownRequestModel
+    public class UpdatePlaceRequestModel
     {
         [Required]
         [MaxLength(MaxNameLength)]

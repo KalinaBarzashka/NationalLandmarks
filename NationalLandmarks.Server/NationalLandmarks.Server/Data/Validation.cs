@@ -20,7 +20,7 @@
             public const int MaxNameLength = 50;
         }
 
-        public class Town
+        public class Place
         {
             public const int MaxNameLength = 50;
         }

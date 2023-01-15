@@ -24,11 +24,10 @@
         public string Description { get; set; }
 
         [Required]
-        public int TownId { get; set; }
+        public int PlaceId { get; set; }
 
-        public Town Town { get; set; }
+        public Place Place { get; set; }
 
-        [Required]
         [MaxLength(MaxAddressLength)]
         public string Address { get; set; }
 
@@ -56,7 +55,7 @@
         //public bool HasSeal { get; set; }
 
         [Required]
-        public string ImageUrl { get; set; }
+        public string ImagePath { get; set; }
 
         [Required]
         public string UserId { get; set; }

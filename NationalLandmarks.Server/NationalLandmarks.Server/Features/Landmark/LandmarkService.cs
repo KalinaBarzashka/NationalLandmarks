@@ -4,20 +4,20 @@
     using Microsoft.EntityFrameworkCore;
     using NationalLandmarks.Server.Data;
     using NationalLandmarks.Server.Features.Landmark.Models;
-    using NationalLandmarks.Server.Features.Town;
+    using NationalLandmarks.Server.Features.Place;
     using NationalLandmarks.Server.Infrastructure.Services;
 
     public class LandmarkService : ILandmarkService
     {
         private readonly NationalLandmarksDbContext dbContext;
         private readonly ICurrentUserService currentUserService;
-        private readonly ITownService townService;
+        private readonly IPlaceService placeService;
 
-        public LandmarkService(NationalLandmarksDbContext dbContext, ICurrentUserService currentUserService, ITownService townService)
+        public LandmarkService(NationalLandmarksDbContext dbContext, ICurrentUserService currentUserService, IPlaceService placeService)
         {
             this.dbContext = dbContext;
             this.currentUserService = currentUserService;
-            this.townService = townService;
+            this.placeService = placeService;
         }
 
         public async Task<int> Create(CreateLandmarkRequestModel model, string userId)
@@ -29,7 +29,7 @@
                 Name = model.Name,
                 IsNationalLandmark = model.IsNationalLandmark,
                 Description = model.Description,
-                TownId = model.TownId,
+                PlaceId = model.PlaceId,
                 Address = model.Address,
                 Latitude = model.Latitude,
                 Longitude = model.Longitude,
@@ -41,7 +41,7 @@
                 Phone = model.Phone,
                 Website = model.Website,
                 //HasSeal = model.HasSeal == "true" ? true : false,
-                ImageUrl = model.ImageUrl,
+                ImagePath = model.ImagePath,
                 UserId = userId
             };
 
@@ -64,9 +64,9 @@
                     RegistrationNumber = l.RegistrationNumber,
                     Name = l.Name,
                     IsNationalLandmark = l.IsNationalLandmark,
-                    TownId = l.TownId,
-                    TownName = l.Town.Name,
-                    ImageUrl = l.ImageUrl,
+                    PlaceId = l.PlaceId,
+                    PlaceName = l.Place.Name,
+                    ImagePath = l.ImagePath,
                     Description = l.Description,
                     UserId = l.UserId
                 }).ToListAsync();
@@ -98,8 +98,8 @@
                     Name = l.Name,
                     IsNationalLandmark = l.IsNationalLandmark,
                     Description = l.Description,
-                    TownId = l.TownId,
-                    TownName = l.Town.Name,
+                    PlaceId = l.PlaceId,
+                    PlaceName = l.Place.Name,
                     Address = l.Address,
                     Latitude = l.Latitude,
                     Longitude = l.Longitude,
@@ -110,7 +110,7 @@
                     Email = l.Email,
                     Phone = l.Phone,
                     Website = l.Website,
-                    ImageUrl = l.ImageUrl,
+                    ImagePath = l.ImagePath,
                     UserId = l.UserId,
                     UserName = l.User.UserName,
                     VisitsCount = l.Visits.Where(v => v.UserId == userId && v.LandmarkId == l.Id).Count(),
@@ -139,7 +139,7 @@
             landmark.Email = model.Email;   
             landmark.Phone = model.Phone;
             landmark.Website = model.Website;
-            landmark.ImageUrl = model.ImageUrl;
+            landmark.ImagePath = model.ImagePath;
 
             await this.dbContext.SaveChangesAsync();
             return true;

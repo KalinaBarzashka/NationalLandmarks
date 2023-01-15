@@ -29,6 +29,6 @@
         public string? Website { get; set; }
 
         [Required]
-        public string ImageUrl { get; set; }
+        public string ImagePath { get; set; }
     }
 }

@@ -3,9 +3,9 @@
     using NationalLandmarks.Server.Data.Models.Base;
     using System.ComponentModel.DataAnnotations;
 
-    using static NationalLandmarks.Server.Data.Validation.Town;
+    using static NationalLandmarks.Server.Data.Validation.Place;
 
-    public class Town: IDeletableEntity
+    public class Place: IDeletableEntity
     {
         public int Id { get; set; }
 
