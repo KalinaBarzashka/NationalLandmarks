@@ -13,7 +13,9 @@
         private readonly ICurrentUserService currentUserService;
         private readonly IPlaceService placeService;
 
-        public LandmarkService(NationalLandmarksDbContext dbContext, ICurrentUserService currentUserService, IPlaceService placeService)
+        public LandmarkService(NationalLandmarksDbContext dbContext,
+            ICurrentUserService currentUserService,
+            IPlaceService placeService)
         {
             this.dbContext = dbContext;
             this.currentUserService = currentUserService;

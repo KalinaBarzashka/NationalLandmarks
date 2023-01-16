@@ -180,5 +180,10 @@ namespace NationalLandmarks.Server.Features.Landmark
 
             return Ok();
         }
+
+        //string root = this.webHostEnvironment.WebRootPath;
+        //var combinedPath = Path.Combine(root, Path.Combine(new string[] { "images", "test.jpg" }));
+        //byte[] imageArray = System.IO.File.ReadAllBytes(combinedPath);
+        //string base64ImageRepresentation = Convert.ToBase64String(imageArray);
     }
 }
