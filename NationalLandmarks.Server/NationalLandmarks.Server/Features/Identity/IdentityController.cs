@@ -1,4 +1,6 @@
-﻿namespace NationalLandmarks.Server.Features.Identity
+﻿using Microsoft.AspNetCore.Http;
+
+namespace NationalLandmarks.Server.Features.Identity
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -225,7 +227,7 @@
         /// <response code="404">Returns not found if role with the specified id does not exists.</response>
         [HttpPut]
         [Authorize(Roles = "Admin")]
-        [Route(nameof(Roles) + RouteId)]
+        [Route(nameof(Roles) + "/" + RouteId)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -259,7 +261,7 @@
         /// <response code="404">Returns not found if role with the specified id does not exists.</response>
         [HttpDelete]
         [Authorize(Roles = "Admin")]
-        [Route(nameof(Roles) + RouteId)]
+        [Route(nameof(Roles) + "/" + RouteId)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -277,6 +279,62 @@
             if (result.Failure)
             {
                 return BadRequest(result.Error);
+            }
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Assign user to specific role.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        /// <response code="200">Returns ok if the assign was successfull.</response>
+        /// <response code="400">Returns bad request if assign fails.</response>
+        [HttpPatch]
+        [Authorize(Roles = "Admin")]
+        [Route(nameof(Roles))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<IdentityError>), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> AssignUserToRole([FromQuery]string userId, [FromQuery]string roleId)
+        {
+            var user = await this.userManager.FindByIdAsync(userId);
+            var role = await this.roleManager.FindByIdAsync(roleId);
+
+            var result = await this.userManager.AddToRoleAsync(user, role.Name);
+
+            if (!result.Succeeded)
+            {
+                return BadRequest(result.Errors);
+            }
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Unassign user from specific role.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        /// <response code="200">Returns ok if the assign was successfull.</response>
+        /// <response code="400">Returns bad request if assign fails.</response>
+        [HttpPatch]
+        [Authorize(Roles = "Admin")]
+        [Route(nameof(Roles) + "/Remove")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<IdentityError>), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> UnassignUserFromRole([FromQuery] string userId, [FromQuery] string roleId)
+        {
+            var user = await this.userManager.FindByIdAsync(userId);
+            var role = await this.roleManager.FindByIdAsync(roleId);
+
+            var result = await this.userManager.RemoveFromRoleAsync(user, role.Name);
+
+            if (!result.Succeeded)
+            {
+                return BadRequest(result.Errors);
             }
 
             return Ok();

@@ -10,7 +10,6 @@
         [Required]
         public bool IsNationalLandmark { get; set; }
 
-        [Required]
         [MaxLength(MaxDescriptionLength)]
         public string Description { get; set; }
 
