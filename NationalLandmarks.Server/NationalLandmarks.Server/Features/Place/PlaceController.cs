@@ -53,6 +53,21 @@ namespace NationalLandmarks.Server.Features.Place
         }
 
         /// <summary>
+        /// Return places as IEnumerable that contains placeName in thier Name property.
+        /// </summary>
+        /// <param name="placeName"></param>
+        /// <returns>IEnumerable object models with id, name and area name params for specific places.</returns>
+        /// <response code="200">Returns specific places as objects.</response>
+        [HttpGet]
+        [Authorize]
+        [Route(nameof(Find))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IEnumerable<GetAllPlacesServiceModel>> Find([FromQuery]string placeName)
+        {
+            return await this.placeService.FindPlacesByName(placeName);
+        }
+
+        /// <summary>
         /// Create new Place object.
         /// </summary>
         /// <param name="model"></param>

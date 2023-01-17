@@ -22,9 +22,8 @@
         [Required]
         public int PlaceId { get; set; }
 
-        [Required]
-        [MaxLength(MaxAddressLength)]
-        public string Address { get; set; }
+        //[MaxLength(MaxAddressLength)]
+        public string? Address { get; set; }
 
         [Required]
         public double Latitude { get; set; }

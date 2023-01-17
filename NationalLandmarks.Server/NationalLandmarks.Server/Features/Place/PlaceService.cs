@@ -23,7 +23,8 @@
                 {
                     Id = t.Id,
                     Name = t.Name,
-                    AreaName = t.Area.Name
+                    AreaName = t.Area.Name,
+                    AreaId = t.AreaId
                 })
                 .ToListAsync();
         }
@@ -37,7 +38,23 @@
                 {
                     Id = t.Id,
                     Name = t.Name,
-                    AreaName = t.Area.Name
+                    AreaName = t.Area.Name,
+                    AreaId = t.AreaId
+                })
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<GetAllPlacesServiceModel>> FindPlacesByName(string placeName)
+        {
+            return await this.dbContext
+                .Places
+                .Where(p => p.Name.Contains(placeName))
+                .Select(t => new GetAllPlacesServiceModel
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    AreaName = t.Area.Name,
+                    AreaId = t.AreaId
                 })
                 .ToListAsync();
         }

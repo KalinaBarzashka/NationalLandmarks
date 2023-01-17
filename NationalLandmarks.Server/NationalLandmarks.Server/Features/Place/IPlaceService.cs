@@ -9,6 +9,8 @@
 
         Task<IEnumerable<GetAllPlacesServiceModel>> GetPlacesInSpecificArea(int id);
 
+        Task<IEnumerable<GetAllPlacesServiceModel>> FindPlacesByName(string sstring);
+
         Task<bool> DoesPlaceExists(int id);
 
         Task<int> Create(CreatePlaceRequestModel model, string? userId);

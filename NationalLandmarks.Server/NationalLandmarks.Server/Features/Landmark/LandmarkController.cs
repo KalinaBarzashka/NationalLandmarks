@@ -42,8 +42,13 @@ namespace NationalLandmarks.Server.Features.Landmark
         [Authorize]
         [Route(RouteId)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<GetAllLandmarksPaginationServiceModel> GetAll(int id = 1)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<GetAllLandmarksPaginationServiceModel>> GetAll(int id = 1)
         {
+            if (id <= 0)
+            {
+                return BadRequest();
+            }
             //id is page number
             return await this.landmarkService.GetAll(id, itemsPerPage);
         }
@@ -99,15 +104,14 @@ namespace NationalLandmarks.Server.Features.Landmark
             }
 
             int landmarkId = await this.landmarkService.Create(model, userId);
-            var landmark = await this.landmarkService.GetDetailsById(landmarkId);
+            //var landmark = await this.landmarkService.GetDetailsById(landmarkId);
 
             //if (landmarkId == 0)
             //{
-            //    return BadRequest("Create faild!");
+            //    return BadRequest("Create failed!");
             //}
 
-            return CreatedAtAction(nameof(Details), new { id = landmarkId }, landmark);
-            //return Created(nameof(this.Create), landmarkId);
+            return CreatedAtAction(nameof(Create), landmarkId);
         }
 
         /// <summary>
