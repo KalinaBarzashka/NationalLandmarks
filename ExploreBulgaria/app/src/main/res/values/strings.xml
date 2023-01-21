@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ExploreBulgaria</string>
+    <string name="username_hint">Enter username...</string>
+    <string name="password_hint">Enter password...</string>
+</resources>
