@@ -5,19 +5,43 @@
     tools:context=".MainActivity">
 
     <item
+        android:id="@+id/menu_action_music"
+        android:icon="@drawable/ic_action_play"
+        android:title="playmusic"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/menu_action_search"
         android:icon="@drawable/ic_action_search"
         android:title="search"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/menu_landmarks"
-        android:title="All Landmarks" />
-    <item
-        android:id="@+id/menu_visited_landmarks"
-        android:title="Visited Landmarks" />
-    <item
-        android:id="@+id/menu_profile"
-        android:title="Profile" />
+        android:id="@+id/menu_action"
+        android:icon="@drawable/ic_action_menu"
+        android:title="submenu"
+        app:showAsAction="ifRoom">
+
+        <menu>
+            <item
+                android:id="@+id/menu_landmarks"
+                android:title="All Landmarks" />
+
+            <item
+                android:id="@+id/menu_visited_landmarks"
+                android:title="Visited Landmarks" />
+
+            <item
+                android:id="@+id/menu_profile"
+                android:title="Profile" />
+
+            <item
+                android:id="@+id/menu_logout"
+                android:title="Log out" />
+        </menu>
+
+    </item>
+
+
 
 </menu>

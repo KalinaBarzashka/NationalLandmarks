@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity"
+    android:fillViewport="true"
+    android:background="@drawable/wallpaper">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/registerFirstName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:padding="5dp"
+            android:ems="10"
+            android:hint="@string/firstname_hint"
+            android:inputType="text"
+            android:layout_marginBottom="20dp"
+            android:drawableLeft="@drawable/ic_action_pencil"/>
+
+        <EditText
+            android:id="@+id/registerLastName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:padding="5dp"
+            android:ems="10"
+            android:hint="@string/lastname_hint"
+            android:inputType="text"
+            android:layout_marginBottom="20dp"
+            android:drawableLeft="@drawable/ic_action_pencil"/>
+
+        <EditText
+            android:id="@+id/registerUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:padding="5dp"
+            android:ems="10"
+            android:hint="@string/username_hint"
+            android:inputType="text"
+            android:layout_marginBottom="20dp"
+            android:drawableLeft="@drawable/ic_action_person"/>
+
+        <EditText
+            android:id="@+id/registerPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:padding="5dp"
+            android:ems="10"
+            android:hint="@string/password_hint"
+            android:inputType="textPassword"
+            android:layout_marginBottom="20dp"
+            android:drawableLeft="@drawable/ic_action_password"/>
+
+        <EditText
+            android:id="@+id/registerConfPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:padding="5dp"
+            android:ems="10"
+            android:hint="@string/password_conf_hint"
+            android:inputType="textPassword"
+            android:layout_marginBottom="20dp"
+            android:drawableLeft="@drawable/ic_action_password"/>
+
+        <EditText
+            android:id="@+id/registerEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:padding="5dp"
+            android:ems="10"
+            android:hint="@string/email_hint"
+            android:inputType="textEmailAddress"
+            android:layout_marginBottom="20dp"
+            android:drawableLeft="@drawable/ic_action_email"/>
+
+        <Button
+            android:id="@+id/registerBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="Register"
+            android:layout_marginBottom="20dp"
+            android:onClick="register"/>
+
+        <TextView
+            android:id="@+id/goToLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Already registered? Log in now!"/>
+
+    </LinearLayout>
+
+</ScrollView>

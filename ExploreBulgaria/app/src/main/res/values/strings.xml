@@ -2,4 +2,8 @@
     <string name="app_name">ExploreBulgaria</string>
     <string name="username_hint">Enter username...</string>
     <string name="password_hint">Enter password...</string>
+    <string name="password_conf_hint">Confirm password...</string>
+    <string name="firstname_hint">Enter first name...</string>
+    <string name="lastname_hint">Enter last name...</string>
+    <string name="email_hint">Enter email...</string>
 </resources>
