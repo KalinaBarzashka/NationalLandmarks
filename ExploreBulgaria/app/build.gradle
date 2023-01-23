@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.infm308.explorebulgaria'
+    namespace 'com.f106648.explorebulgaria'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.infm308.explorebulgaria"
+        applicationId "com.f106648.explorebulgaria"
         minSdk 24
         targetSdk 33
         versionCode 1
